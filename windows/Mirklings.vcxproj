@@ -121,12 +121,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\deathcount.c" />
+    <ClCompile Include="..\gamescreen.c" />
     <ClCompile Include="..\main.c" />
+    <ClCompile Include="..\mirkling.c" />
+    <ClCompile Include="..\mirklinghandler.c" />
+    <ClCompile Include="..\player.c" />
+    <ClCompile Include="..\preciouspeople.c" />
+    <ClCompile Include="..\stage.c" />
+    <ClCompile Include="..\upgrades.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\addons\libtari\windows\vs15\libtari.vcxproj">
       <Project>{3572e463-893d-4815-8ecc-e65f3b8c6d90}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\deathcount.h" />
+    <ClInclude Include="..\gamescreen.h" />
+    <ClInclude Include="..\mirkling.h" />
+    <ClInclude Include="..\mirklinghandler.h" />
+    <ClInclude Include="..\player.h" />
+    <ClInclude Include="..\preciouspeople.h" />
+    <ClInclude Include="..\stage.h" />
+    <ClInclude Include="..\upgrades.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
