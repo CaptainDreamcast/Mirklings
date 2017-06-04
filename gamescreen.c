@@ -4,6 +4,7 @@
 
 #include <tari/actorhandler.h>
 #include <tari/input.h>
+#include <tari/collisionhandler.h>
 
 #include "stage.h"
 #include "mirklinghandler.h"
@@ -11,14 +12,21 @@
 #include "deathcount.h"
 #include "preciouspeople.h"
 #include "upgrades.h"
+#include "collision.h"
 
 static void loadGameScreen() {
+	
+
+	loadMirklingsCollisions();
 	instantiateActor(StageBP);
 	instantiateActor(MirklingHandlerBP);
 	loadPreciousPeople();
 	loadUpgrades();
 	instantiateActor(DeathCountBP);
 	instantiateActor(PlayerBP);
+
+	// activateCollisionHandlerDebugMode();
+	// setCollisionHandlerDebuggingScreenPositionReference(getStagePositionReference());
 }
 
 static Screen* getNextGameScreenScreen() {

@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\collision.c" />
     <ClCompile Include="..\deathcount.c" />
     <ClCompile Include="..\gamescreen.c" />
     <ClCompile Include="..\main.c" />
@@ -137,6 +138,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\collision.h" />
     <ClInclude Include="..\deathcount.h" />
     <ClInclude Include="..\gamescreen.h" />
     <ClInclude Include="..\mirkling.h" />
