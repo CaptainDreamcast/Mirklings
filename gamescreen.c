@@ -13,6 +13,7 @@
 #include "preciouspeople.h"
 #include "upgrades.h"
 #include "collision.h"
+#include "particles.h"
 
 static void loadGameScreen() {
 	
@@ -24,6 +25,7 @@ static void loadGameScreen() {
 	loadUpgrades();
 	instantiateActor(DeathCountBP);
 	instantiateActor(PlayerBP);
+	loadParticles();
 
 	// activateCollisionHandlerDebugMode();
 	// setCollisionHandlerDebuggingScreenPositionReference(getStagePositionReference());
@@ -33,7 +35,11 @@ static Screen* getNextGameScreenScreen() {
 	if (hasPressedAbortFlank()) {
 		abortScreenHandling();
 	}
-	
+
+	if (!hasPreciousPeopleLeft()) {
+		return &GameScreen;
+	}
+
 	return NULL;
 }
 

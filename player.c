@@ -35,7 +35,7 @@ static void addShot(Position p, double r) {
 static void shoot() {
 	Position p = getShotPosition();
 	p = vecAdd(p, *getStagePositionReference());
-	addShot(p, 100);
+	addShot(p, 200);
 }
 
 static void updatePlayer(void* tData) {

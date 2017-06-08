@@ -13,8 +13,8 @@ static struct {
 	TextureData mWalkingTextures[2];
 	Animation mWalkingAnimation;
 
-	int mAmountText;
-	int mAmount;
+	int mDeathCountText;
+	int mDeathCount;
 
 } gData;
 
@@ -23,23 +23,24 @@ static void loadMirklingHandler(void* tData) {
 
 	gData.mWalkingAnimation = createEmptyAnimation();
 	gData.mWalkingAnimation.mFrameAmount = 2;
+	gData.mWalkingAnimation.mDuration = 3;
 	loadConsecutiveTextures(gData.mWalkingTextures, "assets/mirklings/WALKING.pkg", gData.mWalkingAnimation.mFrameAmount);
 
-	gData.mAmount = 0;
-	gData.mAmountText = addHandledTextWithInfiniteDurationOnOneLine(makePosition(20, 20, 15), "Mirkling amount: 0", 0, COLOR_YELLOW, makePosition(20, 20, 1));
+	gData.mDeathCount = 0;
+	gData.mDeathCount = addHandledTextWithInfiniteDurationOnOneLine(makePosition(20, 20, 15), "Death Count: 0", 0, COLOR_YELLOW, makePosition(20, 20, 1));
 }
 
 static void updateMirklingHandler(void* tData) {
 	(void)tData;
 
-	double x = randfrom(0, 100);
-	if (x <= 99) {
+	int i;
+	for (i = 0; i < 5; i++) {
 		addMirkling();
 	}
-
+	
 	char nText[1024];
-	sprintf(nText, "Mirkling amount: %d", gData.mAmount);
-	setHandledText(gData.mAmountText, nText);
+	sprintf(nText, "Death Count: %d", gData.mDeathCount);
+	setHandledText(gData.mDeathCountText, nText);
 }
 
 ActorBlueprint MirklingHandlerBP = {
@@ -57,12 +58,12 @@ Animation getMirklingWalkingAnimation()
 	return gData.mWalkingAnimation;
 }
 
-void increaseMirklingAmount()
+void increaseDeathCount()
 {
-	gData.mAmount++;
+	gData.mDeathCount++;
 }
 
-void decreaseMirklingAmount()
+void resetDeathCount()
 {
-	gData.mAmount--;
+	gData.mDeathCount = 0;
 }
