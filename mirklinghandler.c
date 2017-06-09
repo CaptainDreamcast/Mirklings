@@ -16,6 +16,10 @@ static struct {
 	int mDeathCountText;
 	int mDeathCount;
 
+	int mAmount;
+	int mAmountOnScreen;
+
+	int mIsGenerationPaused;
 } gData;
 
 static void loadMirklingHandler(void* tData) {
@@ -28,19 +32,27 @@ static void loadMirklingHandler(void* tData) {
 
 	gData.mDeathCount = 0;
 	gData.mDeathCount = addHandledTextWithInfiniteDurationOnOneLine(makePosition(20, 20, 15), "Death Count: 0", 0, COLOR_YELLOW, makePosition(20, 20, 1));
+
+	gData.mAmount = 0;
+	gData.mAmountOnScreen = 0;
+
+	gData.mIsGenerationPaused = 0;
 }
 
 static void updateMirklingHandler(void* tData) {
 	(void)tData;
+
+	char nText[1024];
+	sprintf(nText, "Death Count: %d", gData.mDeathCount);
+	setHandledText(gData.mDeathCountText, nText);
+
+	if (gData.mIsGenerationPaused) return;
 
 	int i;
 	for (i = 0; i < 5; i++) {
 		addMirkling();
 	}
 	
-	char nText[1024];
-	sprintf(nText, "Death Count: %d", gData.mDeathCount);
-	setHandledText(gData.mDeathCountText, nText);
 }
 
 ActorBlueprint MirklingHandlerBP = {
@@ -66,4 +78,41 @@ void increaseDeathCount()
 void resetDeathCount()
 {
 	gData.mDeathCount = 0;
+}
+
+void resetMirklingAmount()
+{
+	gData.mAmount = 0;
+	gData.mAmountOnScreen = 0;
+}
+
+void increaseMirklingAmount()
+{
+	gData.mAmount++;
+	gData.mAmountOnScreen++;
+}
+
+void decreaseMirklingAmountOnScreen()
+{
+	gData.mAmountOnScreen--;
+}
+
+int getMirklingAmount()
+{
+	return gData.mAmount;
+}
+
+int getMirklingAmountOnScreen()
+{
+	return gData.mAmountOnScreen;
+}
+
+void pauseMirklingGeneration()
+{
+	gData.mIsGenerationPaused = 1;
+}
+
+void unpauseMirklingGeneration()
+{
+	gData.mIsGenerationPaused = 0;
 }

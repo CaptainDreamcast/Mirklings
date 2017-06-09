@@ -59,6 +59,14 @@ void drawBloodOnStage(Position p, Color c)
 	
 	if (c == COLOR_RED) {
 		c = COLOR_DARK_RED;
+	} else if (c == COLOR_BLUE) {
+		c = COLOR_DARK_BLUE;
+	}
+	else if (c == COLOR_GREEN) {
+		c = COLOR_DARK_GREEN;
+	}
+	else if (c == COLOR_YELLOW) {
+		c = COLOR_DARK_YELLOW;
 	}
 
 	p = vecSub(p, gData.mStageOffset);

@@ -22,6 +22,7 @@ typedef struct {
 	Collider mCollider;
 	double mSpeed;
 	Position mTarget;
+	Color mColor;
 } Mirkling;
 
 
@@ -30,8 +31,8 @@ static void mirklingHitByShot(void* mCaller, void* mColData) {
 	
 	Mirkling* e = mCaller;
 	Position p = *getHandledPhysicsPositionReference(e->mPhysics);
-	addBloodParticles(vecAdd(makePosition(8, 8, 0), p));
-	drawBloodOnStage(p, COLOR_RED);
+	addBloodParticles(vecAdd(makePosition(8, 8, 0), p), e->mColor);
+	drawBloodOnStage(p, e->mColor);
 	addStageHandlerScreenShake(1);
 	increaseDeathCount();
 	removeActor(e->mActor);
@@ -45,6 +46,9 @@ static void chooseNewTarget(Mirkling* e) {
 	addAccelerationToHandledPhysics(e->mPhysics, vecScale(delta, e->mSpeed));
 }
 
+
+static Color gPossibleBloodColors[] = {COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_YELLOW};
+
 static void loadMirkling(void* tData) {
 	Mirkling* e = tData;
 	Position p = makePosition(randfrom(-8, 632), -20, 2);
@@ -57,6 +61,11 @@ static void loadMirkling(void* tData) {
 	setAnimationScreenPositionReference(e->mAnimation, getStagePositionReference());
 	e->mCollider = makeColliderFromCirc(makeCollisionCirc(makePosition(8,8,0), 8));
 	e->mCollision = addColliderToCollisionHandler(getMirklingsCollisionList(), getHandledPhysicsPositionReference(e->mPhysics), e->mCollider, mirklingHitByShot, e, NULL);	
+	
+	int colorAmount = (sizeof gPossibleBloodColors) / sizeof(Color);
+	e->mColor = gPossibleBloodColors[randfromInteger(0, colorAmount - 1)];
+
+	increaseMirklingAmount();
 }
 
 static void unloadMirkling(void* tData) {
@@ -65,6 +74,7 @@ static void unloadMirkling(void* tData) {
 	destroyCollider(&e->mCollider);
 	removeHandledAnimation(e->mAnimation);
 	removeFromPhysicsHandler(e->mPhysics);
+	decreaseMirklingAmountOnScreen();
 }
 
 static void updateMirkling(void* tData) {

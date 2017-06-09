@@ -124,6 +124,7 @@
     <ClCompile Include="..\collision.c" />
     <ClCompile Include="..\deathcount.c" />
     <ClCompile Include="..\gamescreen.c" />
+    <ClCompile Include="..\levelhandler.c" />
     <ClCompile Include="..\main.c" />
     <ClCompile Include="..\mirkling.c" />
     <ClCompile Include="..\mirklinghandler.c" />
@@ -142,6 +143,7 @@
     <ClInclude Include="..\collision.h" />
     <ClInclude Include="..\deathcount.h" />
     <ClInclude Include="..\gamescreen.h" />
+    <ClInclude Include="..\levelhandler.h" />
     <ClInclude Include="..\mirkling.h" />
     <ClInclude Include="..\mirklinghandler.h" />
     <ClInclude Include="..\particles.h" />

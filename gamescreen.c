@@ -14,6 +14,7 @@
 #include "upgrades.h"
 #include "collision.h"
 #include "particles.h"
+#include "levelhandler.h"
 
 static void loadGameScreen() {
 	
@@ -25,6 +26,7 @@ static void loadGameScreen() {
 	loadUpgrades();
 	instantiateActor(DeathCountBP);
 	instantiateActor(PlayerBP);
+	instantiateActor(LevelHandlerBP);
 	loadParticles();
 
 	// activateCollisionHandlerDebugMode();

@@ -10,3 +10,12 @@ Animation getMirklingWalkingAnimation();
 
 void increaseDeathCount();
 void resetDeathCount();
+
+void resetMirklingAmount();
+void increaseMirklingAmount();
+void decreaseMirklingAmountOnScreen();
+int getMirklingAmount();
+int getMirklingAmountOnScreen();
+
+void pauseMirklingGeneration();
+void unpauseMirklingGeneration();
