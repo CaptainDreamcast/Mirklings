@@ -77,7 +77,6 @@ static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tT
 		p->mRotation = randfrom(-1, 1);
 		p->mRotationDelta = randfrom(tMinRotationDelta, tMaxRotationDelta);
 
-
 		p->mAnimation = playAnimationLoop(makePosition(0,0,0), tTexture, createOneFrameAnimation(), makeRectangleFromTexture(tTexture[0]));
 		setAnimationBasePositionReference(p->mAnimation, getHandledPhysicsPositionReference(p->mPhysics));
 		setAnimationScreenPositionReference(p->mAnimation, getStagePositionReference());
@@ -86,7 +85,7 @@ static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tT
 		setAnimationRotationZ(p->mAnimation, p->mRotation, p->mCenter);
 
 		p->mNow = 0;
-		p->mDuration = tDuration;
+		p->mDuration = tDuration + randfromInteger(-5 , 5);
 		
 		p->mColor = tColor;
 

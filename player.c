@@ -5,6 +5,8 @@
 #include <tari/memoryhandler.h>
 #include <tari/timer.h>
 #include <tari/collisionhandler.h>
+#include <tari/soundeffect.h>
+#include <tari/stagehandler.h>
 
 #include "collision.h"
 #include "stage.h"
@@ -14,8 +16,15 @@ typedef struct {
 	Position mPosition;
 } Shot;
 
+static struct {
+	int mBoomSFX;
+	int mCanShoot;
+} gData;
+
 static void loadPlayer(void* tData) {
 	(void)tData;
+	gData.mBoomSFX = loadSoundEffect("assets/sfx/boom.wav");
+	gData.mCanShoot = 1;
 }
 
 static void shotFinished(void* tCaller) {
@@ -36,10 +45,15 @@ static void shoot() {
 	Position p = getShotPosition();
 	p = vecAdd(p, *getStagePositionReference());
 	addShot(p, 200);
+	playSoundEffect(gData.mBoomSFX);
+	addStageHandlerScreenShake(50);
+	
 }
 
 static void updatePlayer(void* tData) {
 	(void)tData;
+	if (!gData.mCanShoot) return;
+	
 	if (hasShotGunFlank()) {
 		shoot();
 	}
@@ -50,3 +64,13 @@ ActorBlueprint PlayerBP = {
 	.mLoad = loadPlayer,
 	.mUpdate = updatePlayer
 };
+
+void pausePlayerShooting()
+{
+	gData.mCanShoot = 0;
+}
+
+void unpausePlayerShooting()
+{
+	gData.mCanShoot = 1;
+}

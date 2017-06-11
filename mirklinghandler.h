@@ -8,9 +8,6 @@ extern ActorBlueprint MirklingHandlerBP;
 TextureData* getMirklingWalkingTextures();
 Animation getMirklingWalkingAnimation();
 
-void increaseDeathCount();
-void resetDeathCount();
-
 void resetMirklingAmount();
 void increaseMirklingAmount();
 void decreaseMirklingAmountOnScreen();

@@ -15,6 +15,7 @@
 #include "collision.h"
 #include "particles.h"
 #include "levelhandler.h"
+#include "titlescreen.h"
 
 static void loadGameScreen() {
 	
@@ -35,7 +36,7 @@ static void loadGameScreen() {
 
 static Screen* getNextGameScreenScreen() {
 	if (hasPressedAbortFlank()) {
-		abortScreenHandling();
+		return &TitleScreen;
 	}
 
 	if (!hasPreciousPeopleLeft()) {

@@ -61,7 +61,7 @@ static void updateHealthBar(PreciousPerson* e) {
 
 static void preciousPersonHit(void* tCaller, void* tData) {
 	(void)tData;
-	addStageHandlerScreenShake(1);
+	addStageHandlerScreenShake(2);
 
 	PreciousPerson* e = tCaller;
 	e->mHealth--;

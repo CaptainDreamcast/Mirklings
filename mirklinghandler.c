@@ -13,9 +13,6 @@ static struct {
 	TextureData mWalkingTextures[2];
 	Animation mWalkingAnimation;
 
-	int mDeathCountText;
-	int mDeathCount;
-
 	int mAmount;
 	int mAmountOnScreen;
 
@@ -30,9 +27,6 @@ static void loadMirklingHandler(void* tData) {
 	gData.mWalkingAnimation.mDuration = 3;
 	loadConsecutiveTextures(gData.mWalkingTextures, "assets/mirklings/WALKING.pkg", gData.mWalkingAnimation.mFrameAmount);
 
-	gData.mDeathCount = 0;
-	gData.mDeathCount = addHandledTextWithInfiniteDurationOnOneLine(makePosition(20, 20, 15), "Death Count: 0", 0, COLOR_YELLOW, makePosition(20, 20, 1));
-
 	gData.mAmount = 0;
 	gData.mAmountOnScreen = 0;
 
@@ -41,10 +35,6 @@ static void loadMirklingHandler(void* tData) {
 
 static void updateMirklingHandler(void* tData) {
 	(void)tData;
-
-	char nText[1024];
-	sprintf(nText, "Death Count: %d", gData.mDeathCount);
-	setHandledText(gData.mDeathCountText, nText);
 
 	if (gData.mIsGenerationPaused) return;
 
@@ -68,16 +58,6 @@ TextureData* getMirklingWalkingTextures()
 Animation getMirklingWalkingAnimation()
 {
 	return gData.mWalkingAnimation;
-}
-
-void increaseDeathCount()
-{
-	gData.mDeathCount++;
-}
-
-void resetDeathCount()
-{
-	gData.mDeathCount = 0;
 }
 
 void resetMirklingAmount()

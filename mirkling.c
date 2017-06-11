@@ -13,6 +13,7 @@
 #include "stage.h"
 #include "collision.h"
 #include "particles.h"
+#include "deathcount.h"
 
 typedef struct {
 	int mActor;

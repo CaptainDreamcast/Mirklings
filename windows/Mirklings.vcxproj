@@ -132,6 +132,7 @@
     <ClCompile Include="..\player.c" />
     <ClCompile Include="..\preciouspeople.c" />
     <ClCompile Include="..\stage.c" />
+    <ClCompile Include="..\titlescreen.c" />
     <ClCompile Include="..\upgrades.c" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="..\player.h" />
     <ClInclude Include="..\preciouspeople.h" />
     <ClInclude Include="..\stage.h" />
+    <ClInclude Include="..\titlescreen.h" />
     <ClInclude Include="..\upgrades.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

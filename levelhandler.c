@@ -7,6 +7,7 @@
 #include <tari/math.h>
 
 #include "mirklinghandler.h"
+#include "player.h"
 
 static struct {
 	int mCurrentLevel;
@@ -17,15 +18,25 @@ static struct {
 	int mIsWaitingToShow;
 } gData;
 
+static void unpauseGameplay() {
+	unpauseMirklingGeneration();
+	unpausePlayerShooting();
+}
+
+static void pauseGameplay() {
+	pauseMirklingGeneration();
+	pausePlayerShooting();
+}
+
 static void showNextLevelOver(void* tCaller) {
 	(void)tCaller;
 	removeHandledText(gData.mFunnyText);
 	removeHandledText(gData.mWaveText);
 	removeHandledAnimation(gData.mBG);
-	unpauseMirklingGeneration();
+	unpauseGameplay();
 }
 
-static int gLevelLimits[] = { 100, 200, 300 };
+static int gLevelLimits[] = { 10000, 200, 300 };
 
 static void showNextLevel() {
 	int levelAmount = (sizeof gLevelLimits) / sizeof(int);
@@ -46,7 +57,7 @@ static void loadLevelHandler(void* tData) {
 	(void)tData;
 	
 	gData.mBGTexture = loadTexture("assets/text/wave_text_bg.pkg");
-	pauseMirklingGeneration();
+	pauseGameplay();
 
 	gData.mIsWaitingToShow = 0;
 	gData.mCurrentLevel = -1;
@@ -55,6 +66,7 @@ static void loadLevelHandler(void* tData) {
 
 static void showNextLevelCB(void* tCaller) {
 	(void)tCaller;
+	pausePlayerShooting();
 	showNextLevel();
 	gData.mIsWaitingToShow = 0;
 }

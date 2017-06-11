@@ -51,6 +51,9 @@
     <ClCompile Include="..\levelhandler.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\titlescreen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deathcount.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\levelhandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\titlescreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

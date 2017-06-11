@@ -9,6 +9,7 @@
 #include <tari/stagehandler.h>
 
 #include "gamescreen.h"
+#include "titlescreen.h"
 
 #ifdef DREAMCAST
 KOS_INIT_FLAGS(INIT_DEFAULT);
@@ -52,7 +53,7 @@ int main(int argc, char** argv) {
 	}
 
 	setMainFileSystem();
-	startScreenHandling(&GameScreen);
+	startScreenHandling(&TitleScreen);
 
 	exitGame();
 
