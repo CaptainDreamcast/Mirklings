@@ -1,5 +1,7 @@
 TARGET = 1ST_READ
-OBJS = main.o \
+OBJS = main.o collision.o deathcount.o gamescreen.o levelhandler.o \
+mirkling.o mirklinghandler.o particles.o player.o preciouspeople.o \
+stage.o titlescreen.o upgrades.o \
 romdisk.o 
 OPTFLAGS=-O3 -fomit-frame-pointer -fno-delayed-branch -DDREAMCAST -Wall -Werror
 KOS_CFLAGS+= $(OPTFLAGS) 

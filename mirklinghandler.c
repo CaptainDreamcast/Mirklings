@@ -36,6 +36,7 @@ static void loadMirklingHandler(void* tData) {
 static void updateMirklingHandler(void* tData) {
 	(void)tData;
 
+	return;
 	if (gData.mIsGenerationPaused) return;
 
 	int i;

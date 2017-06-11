@@ -20,7 +20,7 @@ static struct {
 } gData;
 
 static void loadTitleScreen() {
-	gData.mBGTexture = loadTexture("assets/title/title.pkg");
+	gData.mBGTexture = loadTexture("assets/title/TITLE.pkg");
 	gData.mBG = playAnimationLoop(makePosition(0, 0, 12), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
 
 	Position pressStartPosition = makePosition(20, 300, 13);
