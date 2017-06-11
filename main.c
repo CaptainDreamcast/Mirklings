@@ -16,9 +16,10 @@ KOS_INIT_FLAGS(INIT_DEFAULT);
 
 extern uint8 romdisk[];
 KOS_INIT_ROMDISK(romdisk);
-#endif
 
 #define DEVELOP
+#endif
+
 
 void exitGame() {
 	shutdownTariWrapper();
