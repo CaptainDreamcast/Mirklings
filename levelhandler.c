@@ -56,7 +56,7 @@ static void showNextLevel() {
 static void loadLevelHandler(void* tData) {
 	(void)tData;
 	
-	gData.mBGTexture = loadTexture("assets/text/wave_text_bg.pkg");
+	gData.mBGTexture = loadTexture("assets/text/WAVE_TEXT_BG.pkg");
 	pauseGameplay();
 
 	gData.mIsWaitingToShow = 0;

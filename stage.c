@@ -24,7 +24,7 @@ static void loadStage(void* tData) {
 	setStageHandlerTweening();
 	gData.planeID = addScrollingBackground(1, 1);
 	gData.mBGTexture = addBackgroundElement(gData.planeID, gData.mStageOffset, "assets/stage/BG.pkg", createOneFrameAnimation());
-	setStageCameraRange(makeGeoRectangle(0,0,320,480));
+	setStageCameraRange(makeGeoRectangle(0,0,320,1080));
 }
 
 static void updateStage(void* tData) {

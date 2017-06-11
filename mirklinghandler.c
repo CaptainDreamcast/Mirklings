@@ -31,16 +31,19 @@ static void loadMirklingHandler(void* tData) {
 	gData.mAmountOnScreen = 0;
 
 	gData.mIsGenerationPaused = 0;
+
+	initMirklings();
 }
 
 static void updateMirklingHandler(void* tData) {
 	(void)tData;
 
-	return;
+	updateMirklings();
+
 	if (gData.mIsGenerationPaused) return;
 
 	int i;
-	for (i = 0; i < 5; i++) {
+	for (i = 0; i < 1; i++) {
 		addMirkling();
 	}
 	

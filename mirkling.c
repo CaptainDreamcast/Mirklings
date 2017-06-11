@@ -8,6 +8,8 @@
 #include <tari/input.h>
 #include <tari/collisionhandler.h>
 #include <tari/stagehandler.h>
+#include <tari/log.h>
+#include <tari/system.h>
 
 #include "mirklinghandler.h"
 #include "stage.h"
@@ -15,8 +17,10 @@
 #include "particles.h"
 #include "deathcount.h"
 
+#define MAXIMUM_MIRKLING_AMOUNT 10000
+
 typedef struct {
-	int mActor;
+	int mActive;
 	int mPhysics;
 	int mAnimation;
 	int mCollision;
@@ -25,6 +29,21 @@ typedef struct {
 	Position mTarget;
 	Color mColor;
 } Mirkling;
+
+static struct {
+	Mirkling mMirklings[MAXIMUM_MIRKLING_AMOUNT];
+	int mFreePointer;
+} gData;
+
+void initMirklings() {
+	gData.mFreePointer = 0;
+	int i;	
+	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		gData.mMirklings[i].mActive = 0;
+	}
+}
+
+static void unloadMirkling(Mirkling* e);
 
 
 static void mirklingHitByShot(void* mCaller, void* mColData) {
@@ -36,7 +55,7 @@ static void mirklingHitByShot(void* mCaller, void* mColData) {
 	drawBloodOnStage(p, e->mColor);
 	addStageHandlerScreenShake(1);
 	increaseDeathCount();
-	removeActor(e->mActor);
+	unloadMirkling(e);
 }
 
 static void chooseNewTarget(Mirkling* e) {
@@ -50,8 +69,7 @@ static void chooseNewTarget(Mirkling* e) {
 
 static Color gPossibleBloodColors[] = {COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_YELLOW};
 
-static void loadMirkling(void* tData) {
-	Mirkling* e = tData;
+static void loadMirkling(Mirkling* e) {
 	Position p = makePosition(randfrom(-8, 632), -20, 2);
 	
 	e->mPhysics = addToPhysicsHandler(p);
@@ -65,21 +83,31 @@ static void loadMirkling(void* tData) {
 	
 	int colorAmount = (sizeof gPossibleBloodColors) / sizeof(Color);
 	e->mColor = gPossibleBloodColors[randfromInteger(0, colorAmount - 1)];
+	e->mActive = 1;
 
 	increaseMirklingAmount();
 }
 
-static void unloadMirkling(void* tData) {
-	Mirkling* e = tData;
+static void unloadMirkling(Mirkling* e) {
 	removeFromCollisionHandler(getMirklingsCollisionList(), e->mCollision);
 	destroyCollider(&e->mCollider);
 	removeHandledAnimation(e->mAnimation);
 	removeFromPhysicsHandler(e->mPhysics);
+	e->mActive = 0;
 	decreaseMirklingAmountOnScreen();
 }
 
-static void updateMirkling(void* tData) {
-	Mirkling* e = tData;
+void shutdownMirklings() {
+	int i;
+	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		if(!gData.mMirklings[i].mActive) continue;
+
+		unloadMirkling(&gData.mMirklings[i]);
+	}
+}
+
+
+static void updateMirkling(Mirkling* e) {
 	Position* p = getHandledPhysicsPositionReference(e->mPhysics);
 	double downY = 480 + 20;
 
@@ -87,12 +115,7 @@ static void updateMirkling(void* tData) {
 	p->z = interpolateLinear(2, 3, t);
 	
 	if (p->y > downY) {
-		removeActor(e->mActor);
-		return;
-	}
-
-	if (hasPressedA()) {
-		mirklingHitByShot(e, NULL);
+		unloadMirkling(e);
 		return;
 	}
 
@@ -102,16 +125,35 @@ static void updateMirkling(void* tData) {
 }
 
 
+void updateMirklings() {
+	int i;
+	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		if(!gData.mMirklings[i].mActive) continue;
 
-static ActorBlueprint MirklingBP = {
-	.mLoad = loadMirkling,
-	.mUnload = unloadMirkling,
-	.mUpdate = updateMirkling
-};
+		updateMirkling(&gData.mMirklings[i]);
+	}
 
+}
+
+
+static Mirkling* findFreeMirklingSpot() {
+	int start = gData.mFreePointer++;
+	while(gData.mFreePointer != start) {
+		if(!gData.mMirklings[gData.mFreePointer].mActive) return &gData.mMirklings[gData.mFreePointer];
+
+		gData.mFreePointer = (gData.mFreePointer + 1) % MAXIMUM_MIRKLING_AMOUNT;
+	}
+
+	logError("Unable to find new free Mirkling spot.");
+	abortSystem();
+
+	#ifdef DREAMCAST
+	return NULL;
+	#endif
+}
 
 void addMirkling()
 {
-	Mirkling* e = allocMemory(sizeof(Mirkling));
-	e->mActor = instantiateActorWithData(MirklingBP, e, 1);
+	Mirkling* e = findFreeMirklingSpot();
+	loadMirkling(e);
 }
