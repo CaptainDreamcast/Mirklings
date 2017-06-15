@@ -4,65 +4,97 @@
 #include <tari/animation.h>
 #include <tari/physicshandler.h>
 #include <tari/math.h>
+#include <tari/log.h>
+#include <tari/system.h>
 
 #include "stage.h"
 
-#define MAX_PARTICLE_AMOUNT 500
-
-static struct {
-	TextureData mBlood;
-	int mAmount;
-} gData;
-
-void loadParticles() {
-	gData.mBlood = loadTexture("assets/particles/blood.pkg");
-	gData.mAmount = 0;
-}
+#define MAX_PARTICLE_AMOUNT 1000
 
 typedef struct {
+	int mActive;
 	int mAnimation;
 	int mPhysics;
 	Duration mNow;
 	Duration mDuration;
-	int mActor;
 	Color mColor;
 	double mRotation;
 	double mRotationDelta;
 	Position mCenter;
 } Particle;
 
+static struct {
+	TextureData mBlood;
+	int mHead;
+	int mAmount;
+	Particle mParticles[MAX_PARTICLE_AMOUNT];
+} gData;
 
-static void updateParticle(void* tData) {
-	Particle* e = tData;
+void loadParticles() {
+	gData.mBlood = loadTexture("assets/particles/blood.pkg");
+	
+	gData.mAmount = 0;
+	gData.mHead = 0;
+
+	int i;
+	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
+		gData.mParticles[i].mActive = 0;
+	}
+}
+
+
+static void unloadParticle(Particle* e) {
+	drawBloodOnStage(*getHandledPhysicsPositionReference(e->mPhysics), e->mColor);
+	removeHandledAnimation(e->mAnimation);
+	removeFromPhysicsHandler(e->mPhysics);
+	e->mActive = 0;
+
+	gData.mAmount--;
+}
+
+static void updateParticle(Particle* e) {
 
 	e->mRotation += e->mRotationDelta;
 	setAnimationRotationZ(e->mAnimation, e->mRotation, e->mCenter);
 
 	if (handleDurationAndCheckIfOver(&e->mNow, e->mDuration)) {
-		removeActor(e->mActor);
+		unloadParticle(e);
 	}
 	
 }
 
-static void unloadParticle(void* tData) {
-	Particle* e = tData;
-	drawBloodOnStage(*getHandledPhysicsPositionReference(e->mPhysics), e->mColor);
-	removeHandledAnimation(e->mAnimation);
-	removeFromPhysicsHandler(e->mPhysics);
-	gData.mAmount--;
+void updateParticles() {
+	int i;
+	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
+		if (!gData.mParticles[i].mActive) continue;
 	
+		updateParticle(&gData.mParticles[i]);
+	}
 }
 
-ActorBlueprint ParticleBP = {
-	.mUpdate = updateParticle,
-	.mUnload = unloadParticle
-};
+
+
+
+static Particle* getNextFreeParticle() {
+	
+	int i;
+	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
+		if (!gData.mParticles[gData.mHead].mActive) return &gData.mParticles[gData.mHead];
+		gData.mHead = (gData.mHead + 1) % MAX_PARTICLE_AMOUNT;
+
+	}
+
+	logError("Unable to find free particle.");
+	logErrorInteger(gData.mAmount);
+	abortSystem();
+	return NULL;
+}
 
 static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tTexture, GeoRectangle tPosRange, GeoRectangle tVelRange, double tMinRotationDelta, double tMaxRotationDelta, Duration tDuration) {
-	if (gData.mAmount >= MAX_PARTICLE_AMOUNT) return;
-
+	
 	int i;
 	for (i = 0; i < tAmount; i++) {
+		if (gData.mAmount >= MAX_PARTICLE_AMOUNT) return;
 
 		double rx = randfrom(tPosRange.mTopLeft.x, tPosRange.mBottomRight.x);
 		double ry = randfrom(tPosRange.mTopLeft.y, tPosRange.mBottomRight.y);
@@ -70,7 +102,7 @@ static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tT
 		double vx = randfrom(tVelRange.mTopLeft.x, tVelRange.mBottomRight.x);
 		double vy = randfrom(tVelRange.mTopLeft.y, tVelRange.mBottomRight.y);
 
-		Particle* p = allocMemory(sizeof(Particle));
+		Particle* p = getNextFreeParticle();
 		p->mPhysics = addToPhysicsHandler(vecAdd(pos, makePosition(rx, ry, 0)));
 		addAccelerationToHandledPhysics(p->mPhysics, makePosition(vx, vy, 0));
 		setHandledPhysicsGravity(p->mPhysics, makePosition(0, 0.1, 0));
@@ -89,8 +121,7 @@ static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tT
 		
 		p->mColor = tColor;
 
-		p->mActor = instantiateActorWithData(ParticleBP, p, 1);
-
+		p->mActive = 1;
 		gData.mAmount++;
 	}
 

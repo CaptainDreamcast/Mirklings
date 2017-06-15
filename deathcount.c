@@ -1,5 +1,7 @@
 #include "deathcount.h"
 
+#include <stdio.h>
+
 #include <tari/texthandler.h>
 
 static struct {

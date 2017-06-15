@@ -16,3 +16,6 @@ int getMirklingAmountOnScreen();
 
 void pauseMirklingGeneration();
 void unpauseMirklingGeneration();
+
+void setMirklingSpeed(double tSpeedMin, double tSpeedMax);
+void setMirklingsGeneratedPerFrame(double tMirklingsPerFrame);

@@ -1,5 +1,5 @@
 #pragma once
 
-void addMirkling();
+void addMirkling(double tSpeed);
 void initMirklings();
 void updateMirklings();

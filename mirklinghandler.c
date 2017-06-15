@@ -17,6 +17,10 @@ static struct {
 	int mAmountOnScreen;
 
 	int mIsGenerationPaused;
+
+	double mMirklingsGeneratedPerFrame;
+	double mMirklingSpeedMin;
+	double mMirklingSpeedMax;
 } gData;
 
 static void loadMirklingHandler(void* tData) {
@@ -31,6 +35,10 @@ static void loadMirklingHandler(void* tData) {
 	gData.mAmountOnScreen = 0;
 
 	gData.mIsGenerationPaused = 0;
+	
+	gData.mMirklingsGeneratedPerFrame = 10;
+	gData.mMirklingSpeedMin = 1;
+	gData.mMirklingSpeedMax = 2;
 
 	initMirklings();
 }
@@ -43,8 +51,8 @@ static void updateMirklingHandler(void* tData) {
 	if (gData.mIsGenerationPaused) return;
 
 	int i;
-	for (i = 0; i < 1; i++) {
-		addMirkling();
+	for (i = 0; i < gData.mMirklingsGeneratedPerFrame; i++) {
+		addMirkling(randfrom(gData.mMirklingSpeedMin, gData.mMirklingSpeedMax));
 	}
 	
 }
@@ -99,4 +107,15 @@ void pauseMirklingGeneration()
 void unpauseMirklingGeneration()
 {
 	gData.mIsGenerationPaused = 0;
+}
+
+void setMirklingSpeed(double tSpeedMin, double tSpeedMax)
+{
+	gData.mMirklingSpeedMin = tSpeedMin;
+	gData.mMirklingSpeedMax = tSpeedMax;
+}
+
+void setMirklingsGeneratedPerFrame(double tMirklingsPerFrame)
+{
+	gData.mMirklingsGeneratedPerFrame = tMirklingsPerFrame;
 }

@@ -123,6 +123,8 @@
   <ItemGroup>
     <ClCompile Include="..\collision.c" />
     <ClCompile Include="..\deathcount.c" />
+    <ClCompile Include="..\explosion.c" />
+    <ClCompile Include="..\gameoverscreen.c" />
     <ClCompile Include="..\gamescreen.c" />
     <ClCompile Include="..\levelhandler.c" />
     <ClCompile Include="..\main.c" />
@@ -131,6 +133,15 @@
     <ClCompile Include="..\particles.c" />
     <ClCompile Include="..\player.c" />
     <ClCompile Include="..\preciouspeople.c" />
+    <ClCompile Include="..\routehandler.c" />
+    <ClCompile Include="..\routes\standardroute.c" />
+    <ClCompile Include="..\routes\standardroute\standard.c" />
+    <ClCompile Include="..\routes\standardroute\standard1.c" />
+    <ClCompile Include="..\routes\standardroute\standard2.c" />
+    <ClCompile Include="..\routes\standardroute\standard3.c" />
+    <ClCompile Include="..\routes\standardroute\standard4.c" />
+    <ClCompile Include="..\routes\standardroute\standard5.c" />
+    <ClCompile Include="..\soundeffect.c" />
     <ClCompile Include="..\stage.c" />
     <ClCompile Include="..\titlescreen.c" />
     <ClCompile Include="..\upgrades.c" />
@@ -143,6 +154,8 @@
   <ItemGroup>
     <ClInclude Include="..\collision.h" />
     <ClInclude Include="..\deathcount.h" />
+    <ClInclude Include="..\explosion.h" />
+    <ClInclude Include="..\gameoverscreen.h" />
     <ClInclude Include="..\gamescreen.h" />
     <ClInclude Include="..\levelhandler.h" />
     <ClInclude Include="..\mirkling.h" />
@@ -150,6 +163,16 @@
     <ClInclude Include="..\particles.h" />
     <ClInclude Include="..\player.h" />
     <ClInclude Include="..\preciouspeople.h" />
+    <ClInclude Include="..\route.h" />
+    <ClInclude Include="..\routehandler.h" />
+    <ClInclude Include="..\routes\standardroute.h" />
+    <ClInclude Include="..\routes\standardroute\standard.h" />
+    <ClInclude Include="..\routes\standardroute\standard1.h" />
+    <ClInclude Include="..\routes\standardroute\standard2.h" />
+    <ClInclude Include="..\routes\standardroute\standard3.h" />
+    <ClInclude Include="..\routes\standardroute\standard4.h" />
+    <ClInclude Include="..\routes\standardroute\standard5.h" />
+    <ClInclude Include="..\soundeffect.h" />
     <ClInclude Include="..\stage.h" />
     <ClInclude Include="..\titlescreen.h" />
     <ClInclude Include="..\upgrades.h" />

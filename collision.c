@@ -31,3 +31,9 @@ int getPreciousPeopleCollisionList()
 {
 	return gData.mPreciousPeopleCollisionList;
 }
+
+CollisionData makeCollisionData(int tType) {
+	CollisionData ret;
+	ret.mType = tType;
+	return ret;
+}

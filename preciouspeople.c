@@ -5,6 +5,8 @@
 #include <tari/collisionhandler.h>
 #include <tari/stagehandler.h>
 #include <tari/tweening.h>
+#include <tari/soundeffect.h>
+#include <tari/timer.h>
 
 #include "stage.h"
 #include "collision.h"
@@ -27,12 +29,15 @@ typedef struct {
 	int mHealth;
 	int mHealthBar;
 
+	int mCanScream;
+
+	CollisionData mCollisionData;
 } PreciousPerson;
 
 static struct {
 	int mPreciousPeopleAmount;
-
 	TextureData mHealthBarTexture;
+	SoundEffectCollection mScreams;
 } gData;
 
 static Animation gPeopleAnimation = {
@@ -59,6 +64,21 @@ static void updateHealthBar(PreciousPerson* e) {
 
 }
 
+static void resetScream(void* tCaller) {
+	PreciousPerson* e = tCaller;
+	e->mCanScream = 1;
+}
+
+static void setScream(PreciousPerson* e) {
+	if (!e->mCanScream) return;
+
+	playRandomSoundEffectFromCollection(gData.mScreams);
+
+	e->mCanScream = 0;
+	addTimerCB(60, resetScream, e);
+}
+
+
 static void preciousPersonHit(void* tCaller, void* tData) {
 	(void)tData;
 	addStageHandlerScreenShake(2);
@@ -67,9 +87,11 @@ static void preciousPersonHit(void* tCaller, void* tData) {
 	e->mHealth--;
 	updateHealthBar(e);
 
+	setScream(e);
 	addSqueeze(e);
 
 	if (!e->mHealth) {
+		increaseScreenShake();
 		removeActor(e->mActor);
 	}
 	
@@ -87,10 +109,13 @@ static void loadPreciousPerson(void* tData) {
 	updateHealthBar(e);
 
 	e->mCollider = makeColliderFromRect(makeCollisionRect(makePosition(0, 20, 0), makePosition(64, 64, 0)));
-	e->mCollision = addColliderToCollisionHandler(getPreciousPeopleCollisionList(), &e->p, e->mCollider, preciousPersonHit, e, NULL);
+	e->mCollisionData = makeCollisionData(getPreciousPeopleCollisionList());
+	e->mCollision = addColliderToCollisionHandler(getPreciousPeopleCollisionList(), &e->p, e->mCollider, preciousPersonHit, e, &e->mCollisionData);
 	
 	e->mSqueezeFactor = 1;
 	e->mSqueeze = -1;
+
+	e->mCanScream = 1;
 
 	gData.mPreciousPeopleAmount++;
 
@@ -126,13 +151,17 @@ static char gPeoplePaths[5][1024] = {
 	"assets/precious/HOUSE4.pkg"
 };
 
+static void loadPreciousPeopleSoundEffects() {
+	gData.mScreams = loadConsecutiveSoundEffectsToCollection("assets/sfx/screams/SCREAM.wav", 3);
+}
 
 void loadPreciousPeople()
 {
 	gData.mPreciousPeopleAmount = 0;
 	resetAnimation(&gPeopleAnimation);
 	gData.mHealthBarTexture = loadTexture("assets/debug/collision_rect.pkg");
-	
+	loadPreciousPeopleSoundEffects();
+
 	int preciousPeopleAmount = 5;
 	Position p = makePosition(70, 370, 4);
 
@@ -149,5 +178,10 @@ void loadPreciousPeople()
 }
 
 int hasPreciousPeopleLeft() {
+	return gData.mPreciousPeopleAmount;
+}
+
+int getPreciousPeopleAmount()
+{
 	return gData.mPreciousPeopleAmount;
 }

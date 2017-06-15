@@ -10,6 +10,8 @@
 
 #include "gamescreen.h"
 #include "titlescreen.h"
+#include "gameoverscreen.h"
+#include "soundeffect.h"
 
 #ifdef DREAMCAST
 KOS_INIT_FLAGS(INIT_DEFAULT);
@@ -47,6 +49,7 @@ int main(int argc, char** argv) {
 	setScreenSize(640, 480);
 
 	initTariWrapperWithDefaultFlags();
+	setFont("$/rd/fonts/segoe.hdr", "$/rd/fonts/segoe.png");
 
 	logg("Check framerate");
 	FramerateSelectReturnType framerateReturnType = selectFramerate();
@@ -55,7 +58,7 @@ int main(int argc, char** argv) {
 	}
 
 	setMainFileSystem();
-	startScreenHandling(&TitleScreen);
+	startScreenHandling(&GameOverScreen);
 
 	exitGame();
 

@@ -9,11 +9,16 @@
 static struct {
 	int planeID;
 	int mBGTexture;
+	double mShakeMaximum;
 
 	Vector3D mStageOffset;
 } gData;
 
 
+void increaseScreenShake() {
+	gData.mShakeMaximum += 0;
+	setStageHandlerMaximumScreenShake(gData.mShakeMaximum);
+}
 
 static void loadStage(void* tData) {
 	(void)tData;
@@ -25,6 +30,9 @@ static void loadStage(void* tData) {
 	gData.planeID = addScrollingBackground(1, 1);
 	gData.mBGTexture = addBackgroundElement(gData.planeID, gData.mStageOffset, "assets/stage/BG.pkg", createOneFrameAnimation());
 	setStageCameraRange(makeGeoRectangle(0,0,320,1080));
+	gData.mShakeMaximum = 0;
+	increaseScreenShake();
+	
 }
 
 static void updateStage(void* tData) {

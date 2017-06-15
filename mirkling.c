@@ -16,6 +16,7 @@
 #include "collision.h"
 #include "particles.h"
 #include "deathcount.h"
+#include "explosion.h"
 
 #define MAXIMUM_MIRKLING_AMOUNT 10000
 
@@ -28,6 +29,8 @@ typedef struct {
 	double mSpeed;
 	Position mTarget;
 	Color mColor;
+
+	CollisionData mCollisionData;
 } Mirkling;
 
 static struct {
@@ -45,12 +48,22 @@ void initMirklings() {
 
 static void unloadMirkling(Mirkling* e);
 
+static void addMirklingExplosion(Position p) {
+	p = vecAdd(p, makePosition(8, 8, 0));
+	p.z = 5;
+	addExplosion(p, 8);
+}
 
-static void mirklingHitByShot(void* mCaller, void* mColData) {
-	(void)mColData;
+static void mirklingHitByShot(void* mCaller, void* tColData) {
 	
 	Mirkling* e = mCaller;
+	CollisionData* colData = tColData;
 	Position p = *getHandledPhysicsPositionReference(e->mPhysics);
+
+	if (colData->mType == getPreciousPeopleCollisionList()) {
+		addMirklingExplosion(p);
+	}
+
 	addBloodParticles(vecAdd(makePosition(8, 8, 0), p), e->mColor);
 	drawBloodOnStage(p, e->mColor);
 	addStageHandlerScreenShake(1);
@@ -69,17 +82,18 @@ static void chooseNewTarget(Mirkling* e) {
 
 static Color gPossibleBloodColors[] = {COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_YELLOW};
 
-static void loadMirkling(Mirkling* e) {
+static void loadMirkling(Mirkling* e, double tSpeed) {
 	Position p = makePosition(randfrom(-8, 632), -20, 2);
 	
 	e->mPhysics = addToPhysicsHandler(p);
-	e->mSpeed = randfrom(1, 2);
+	e->mSpeed = tSpeed;
 	chooseNewTarget(e);
 	e->mAnimation = playAnimationLoop(makePosition(0, 0, 0), getMirklingWalkingTextures(), getMirklingWalkingAnimation(), makeRectangleFromTexture(getMirklingWalkingTextures()[0]));
 	setAnimationBasePositionReference(e->mAnimation, getHandledPhysicsPositionReference(e->mPhysics));
 	setAnimationScreenPositionReference(e->mAnimation, getStagePositionReference());
 	e->mCollider = makeColliderFromCirc(makeCollisionCirc(makePosition(8,8,0), 8));
-	e->mCollision = addColliderToCollisionHandler(getMirklingsCollisionList(), getHandledPhysicsPositionReference(e->mPhysics), e->mCollider, mirklingHitByShot, e, NULL);	
+	e->mCollisionData = makeCollisionData(getMirklingsCollisionList());
+	e->mCollision = addColliderToCollisionHandler(getMirklingsCollisionList(), getHandledPhysicsPositionReference(e->mPhysics), e->mCollider, mirklingHitByShot, e, &e->mCollisionData);	
 	
 	int colorAmount = (sizeof gPossibleBloodColors) / sizeof(Color);
 	e->mColor = gPossibleBloodColors[randfromInteger(0, colorAmount - 1)];
@@ -137,23 +151,21 @@ void updateMirklings() {
 
 
 static Mirkling* findFreeMirklingSpot() {
-	int start = gData.mFreePointer++;
-	while(gData.mFreePointer != start) {
-		if(!gData.mMirklings[gData.mFreePointer].mActive) return &gData.mMirklings[gData.mFreePointer];
+	int i;
 
+	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		if(!gData.mMirklings[gData.mFreePointer].mActive) return &gData.mMirklings[gData.mFreePointer];
 		gData.mFreePointer = (gData.mFreePointer + 1) % MAXIMUM_MIRKLING_AMOUNT;
 	}
 
 	logError("Unable to find new free Mirkling spot.");
 	abortSystem();
 
-	#ifdef DREAMCAST
 	return NULL;
-	#endif
 }
 
-void addMirkling()
+void addMirkling(double tSpeed)
 {
 	Mirkling* e = findFreeMirklingSpot();
-	loadMirkling(e);
+	loadMirkling(e, tSpeed);
 }

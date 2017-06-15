@@ -9,3 +9,4 @@ extern ActorBlueprint StageBP;
 Position* getStagePositionReference();
 
 void drawBloodOnStage(Position p, Color c);
+void increaseScreenShake();

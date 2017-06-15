@@ -5,6 +5,7 @@
 #include <tari/actorhandler.h>
 #include <tari/input.h>
 #include <tari/collisionhandler.h>
+#include <tari/stagehandler.h>
 
 #include "stage.h"
 #include "mirklinghandler.h"
@@ -16,10 +17,13 @@
 #include "particles.h"
 #include "levelhandler.h"
 #include "titlescreen.h"
+#include "gameoverscreen.h"
+#include "soundeffect.h"
+#include "explosion.h"
+#include "routehandler.h"
 
 static void loadGameScreen() {
-	
-
+	initGameSoundEffects();
 	loadMirklingsCollisions();
 	instantiateActor(StageBP);
 	instantiateActor(MirklingHandlerBP);
@@ -27,11 +31,17 @@ static void loadGameScreen() {
 	loadUpgrades();
 	instantiateActor(DeathCountBP);
 	instantiateActor(PlayerBP);
-	instantiateActor(LevelHandlerBP);
 	loadParticles();
+	loadExplosions();
+	startNewRoute();
 
 	// activateCollisionHandlerDebugMode();
 	// setCollisionHandlerDebuggingScreenPositionReference(getStagePositionReference());
+}
+
+static void updateGameScreen() {
+	updateParticles();
+	updateRouteHandler();
 }
 
 static Screen* getNextGameScreenScreen() {
@@ -40,7 +50,7 @@ static Screen* getNextGameScreenScreen() {
 	}
 
 	if (!hasPreciousPeopleLeft()) {
-		return &GameScreen;
+		return &GameOverScreen;
 	}
 
 	return NULL;
@@ -50,6 +60,6 @@ Screen GameScreen = {
 	.mLoad = loadGameScreen,
 	.mUnload = NULL,
 	.mDraw = NULL,
-	.mUpdate = NULL,
+	.mUpdate = updateGameScreen,
 	.mGetNextScreen = getNextGameScreenScreen
 };

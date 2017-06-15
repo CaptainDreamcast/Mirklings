@@ -10,44 +10,49 @@
 
 #include "collision.h"
 #include "stage.h"
+#include "preciouspeople.h"
+#include "explosion.h"
 
 typedef struct {
 	int mCollisionID;
 	Position mPosition;
+	Collider mCollider;
+	CollisionData mCollisionData;
 } Shot;
 
 static struct {
-	int mBoomSFX;
 	int mCanShoot;
 } gData;
 
+
 static void loadPlayer(void* tData) {
 	(void)tData;
-	gData.mBoomSFX = loadSoundEffect("assets/sfx/boom.wav");
 	gData.mCanShoot = 1;
 }
 
 static void shotFinished(void* tCaller) {
 	Shot* s = tCaller;
 	removeFromCollisionHandler(getShotCollisionList(), s->mCollisionID);
+	destroyCollider(&s->mCollider);
 	freeMemory(s);
 }
 
 static void addShot(Position p, double r) {
 	Shot* s = allocMemory(sizeof(Shot));
 	s->mPosition = p;
-	Collider c = makeColliderFromCirc(makeCollisionCirc(makePosition(0,0,0), r));
-	s->mCollisionID = addColliderToCollisionHandler(getShotCollisionList(), &s->mPosition, c, NULL, NULL, NULL);
+	s->mCollider = makeColliderFromCirc(makeCollisionCirc(makePosition(0,0,0), r));
+	s->mCollisionData = makeCollisionData(getShotCollisionList());
+	s->mCollisionID = addColliderToCollisionHandler(getShotCollisionList(), &s->mPosition, s->mCollider, NULL, NULL, &s->mCollisionData);
+	p.z = 3;
+	addExplosion(p, r);
 	addTimerCB(2, shotFinished, s);
 }
+
 
 static void shoot() {
 	Position p = getShotPosition();
 	p = vecAdd(p, *getStagePositionReference());
-	addShot(p, 200);
-	playSoundEffect(gData.mBoomSFX);
-	addStageHandlerScreenShake(50);
-	
+	addShot(p, 40 * getPreciousPeopleAmount());	
 }
 
 static void updatePlayer(void* tData) {
