@@ -6,6 +6,8 @@
 #include <tari/stagehandler.h>
 #include <tari/input.h>
 
+#include "preciouspeople.h"
+
 static struct {
 	int planeID;
 	int mBGTexture;
@@ -16,8 +18,13 @@ static struct {
 
 
 void increaseScreenShake() {
-	gData.mShakeMaximum += 0;
+	gData.mShakeMaximum += 10;
 	setStageHandlerMaximumScreenShake(gData.mShakeMaximum);
+}
+
+void resetScreenShakeLimit()
+{
+	gData.mShakeMaximum = getPreciousPeopleAmount()*10;
 }
 
 static void loadStage(void* tData) {

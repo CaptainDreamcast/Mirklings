@@ -22,12 +22,17 @@ typedef struct {
 
 static struct {
 	int mCanShoot;
+
+	double mRotationAngle;
+	Position mRotationCenter;
 } gData;
 
 
 static void loadPlayer(void* tData) {
 	(void)tData;
 	gData.mCanShoot = 1;
+	gData.mRotationAngle = 0;
+	gData.mRotationCenter = makePosition(0, 0, 0);
 }
 
 static void shotFinished(void* tCaller) {
@@ -48,10 +53,15 @@ static void addShot(Position p, double r) {
 	addTimerCB(2, shotFinished, s);
 }
 
-
-static void shoot() {
+static Position getAdvancedShotPosition() {
 	Position p = getShotPosition();
 	p = vecAdd(p, *getStagePositionReference());
+	p = vecRotateZAroundCenter(p, gData.mRotationAngle, gData.mRotationCenter);
+	return p;
+}
+
+static void shoot() {
+	Position p = getAdvancedShotPosition();
 	addShot(p, 40 * getPreciousPeopleAmount());	
 }
 
@@ -78,4 +88,10 @@ void pausePlayerShooting()
 void unpausePlayerShooting()
 {
 	gData.mCanShoot = 1;
+}
+
+void setPlayerShotRotation(double tAngle, Vector3D tCenter)
+{
+	gData.mRotationAngle = tAngle;
+	gData.mRotationCenter = tCenter;
 }

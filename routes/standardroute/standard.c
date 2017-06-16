@@ -70,8 +70,8 @@ static void showNextLevelUI() {
 	showFunnyText();
 	setHandledTextSoundEffects(gData.mFunnyText, getTextSoundEffectCollection());
 
-	gData.mBG = playAnimationLoop(makePosition(0, 0, 11), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
-	setAnimationSize(gData.mBG, makePosition(640, 480, 1), makePosition(0, 0, 0));
+	gData.mBG = playAnimationLoop(makePosition(-320, -240, 11), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
+	setAnimationSize(gData.mBG, makePosition(1280, 960, 1), makePosition(0, 0, 0));
 	gData.mIsShowingUI = 1;
 	gData.mTimer = addTimerCB(200, showNextLevelUIOver, NULL);
 }

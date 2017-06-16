@@ -41,6 +41,8 @@ typedef struct {
 static struct {
 	Mirkling mMirklings[MAXIMUM_MIRKLING_AMOUNT];
 	int mFreePointer;
+	
+	double mSpawnY;
 } gData;
 
 void initMirklings() {
@@ -49,6 +51,8 @@ void initMirklings() {
 	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
 		gData.mMirklings[i].mActive = 0;
 	}
+
+	gData.mSpawnY = -20;
 }
 
 static void unloadMirkling(Mirkling* e);
@@ -164,36 +168,39 @@ void setMirklingRouteHitCB(int tID, void(*tCB)(void *tCaller, void *tCollisionDa
 	e->mRouteHitCaller = tCaller;
 }
 
+void setMirklingSpawnY(double tY)
+{
+	gData.mSpawnY = tY;
+}
 
-static Mirkling* findFreeMirklingSpot() {
+
+static int findFreeMirklingSpotIndex() {
 	int i;
 
 	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
-		if(!gData.mMirklings[gData.mFreePointer].mActive) return &gData.mMirklings[gData.mFreePointer];
+		if(!gData.mMirklings[gData.mFreePointer].mActive) return gData.mFreePointer;
 		gData.mFreePointer = (gData.mFreePointer + 1) % MAXIMUM_MIRKLING_AMOUNT;
 	}
 
 	logError("Unable to find new free Mirkling spot.");
 	abortSystem();
 
-	return NULL;
+	return -1;
 }
 
 void addMirkling(double tSpeed)
 {
-	Mirkling* e = findFreeMirklingSpot();
-	loadMirkling(e, makePosition(randfrom(-8, 632), -20, 2), tSpeed);
+	int id = findFreeMirklingSpotIndex();
+	Mirkling* e = &gData.mMirklings[id];
+	loadMirkling(e, makePosition(randfrom(-8, 632), gData.mSpawnY, 2), tSpeed);
 	chooseNewBottomScreenTarget(e);
-}
-
-static int getIndexFromMirklingPointer(Mirkling* e) {
-	return (e - gData.mMirklings) / sizeof(Mirkling);
 }
 
 int addMirklingManual(Position tPos, Vector3D tDir, double tSpeed)
 {
-	Mirkling* e = findFreeMirklingSpot();
+	int id = findFreeMirklingSpotIndex();
+	Mirkling* e = &gData.mMirklings[id];
 	loadMirkling(e, tPos, tSpeed);
 	addAccelerationToHandledPhysics(e->mPhysics, vecScale(tDir, tSpeed));
-	return getIndexFromMirklingPointer(e);
+	return id;
 }

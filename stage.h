@@ -10,3 +10,5 @@ Position* getStagePositionReference();
 
 void drawBloodOnStage(Position p, Color c);
 void increaseScreenShake();
+
+void resetScreenShakeLimit();

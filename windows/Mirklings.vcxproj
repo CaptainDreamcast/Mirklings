@@ -126,7 +126,6 @@
     <ClCompile Include="..\explosion.c" />
     <ClCompile Include="..\gameoverscreen.c" />
     <ClCompile Include="..\gamescreen.c" />
-    <ClCompile Include="..\levelhandler.c" />
     <ClCompile Include="..\main.c" />
     <ClCompile Include="..\mirkling.c" />
     <ClCompile Include="..\mirklinghandler.c" />
@@ -134,6 +133,9 @@
     <ClCompile Include="..\player.c" />
     <ClCompile Include="..\preciouspeople.c" />
     <ClCompile Include="..\routehandler.c" />
+    <ClCompile Include="..\routes\pukeroute.c" />
+    <ClCompile Include="..\routes\pukeroute\rotatelevel.c" />
+    <ClCompile Include="..\routes\pukeroute\shakelevel.c" />
     <ClCompile Include="..\routes\standardroute.c" />
     <ClCompile Include="..\routes\standardroute\standard.c" />
     <ClCompile Include="..\routes\standardroute\standard1.c" />
@@ -170,6 +172,9 @@
     <ClInclude Include="..\preciouspeople.h" />
     <ClInclude Include="..\route.h" />
     <ClInclude Include="..\routehandler.h" />
+    <ClInclude Include="..\routes\pukeroute.h" />
+    <ClInclude Include="..\routes\pukeroute\rotatelevel.h" />
+    <ClInclude Include="..\routes\pukeroute\shakelevel.h" />
     <ClInclude Include="..\routes\standardroute.h" />
     <ClInclude Include="..\routes\standardroute\standard.h" />
     <ClInclude Include="..\routes\standardroute\standard1.h" />

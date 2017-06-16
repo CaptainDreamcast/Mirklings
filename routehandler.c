@@ -4,6 +4,8 @@
 #include <tari/wrapper.h>
 
 #include "routes/standardroute.h"
+#include "routes/pukeroute.h"
+
 #include "levelhandler.h"
 #include "route.h"
 #include "gameoverscreen.h"
@@ -15,7 +17,7 @@ static struct {
 } gData;
 
 static Route* gRoutes[] = {
-	&StandardRoute,
+	&PukeRoute,
 };
 
 static void resetAllRoutes() {
@@ -31,10 +33,10 @@ void reloadRoute() {
 	int i;
 	for (i = 0; i < gData.mAmount; i++) {
 		gData.mCurrentRoute = randfromInteger(0, gData.mAmount - 1);
-		if (gRoutes[gData.mCurrentRoute]->mCanBePlayed) break;
+		if (gRoutes[gData.mCurrentRoute]->mCanBePlayed()) break;
 	}
 
-	if (!gRoutes[gData.mCurrentRoute]->mCanBePlayed) {
+	if (!gRoutes[gData.mCurrentRoute]->mCanBePlayed()) {
 		resetAllRoutes();
 		reloadRoute();
 	}

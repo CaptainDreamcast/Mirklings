@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\standardroute">
+      <UniqueIdentifier>{2bd4c292-e6fa-48b3-b753-70bff5212a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\standardroute">
+      <UniqueIdentifier>{0ae3d157-5de5-4bbb-b0a9-b8f3500bbd75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\main.c">
@@ -48,9 +54,6 @@
     <ClCompile Include="..\particles.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\levelhandler.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\titlescreen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -69,37 +72,46 @@
     <ClCompile Include="..\routes\standardroute.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\routes\standardroute\standard1.c">
+    <ClCompile Include="..\routes\pukeroute.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\rotatelevel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\standardroute\standard1.c">
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard2.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard3.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard4.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard5.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard6.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard7.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard8.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard9.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\standardroute</Filter>
     </ClCompile>
     <ClCompile Include="..\routes\standardroute\standard10.c">
+      <Filter>Source Files\standardroute</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\shakelevel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,37 +170,46 @@
     <ClInclude Include="..\route.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\routes\standardroute\standard1.h">
+    <ClInclude Include="..\routes\pukeroute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\rotatelevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\standardroute\standard1.h">
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard2.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard3.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard4.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard5.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard6.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard7.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard8.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard9.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard10.h">
+      <Filter>Header Files\standardroute</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\shakelevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
