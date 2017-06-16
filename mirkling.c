@@ -20,6 +20,8 @@
 
 #define MAXIMUM_MIRKLING_AMOUNT 10000
 
+typedef void(*RouteHitCB)(void* tCaller, void* tCollisionData);
+
 typedef struct {
 	int mActive;
 	int mPhysics;
@@ -31,6 +33,9 @@ typedef struct {
 	Color mColor;
 
 	CollisionData mCollisionData;
+
+	RouteHitCB mRouteHitCB;
+	void* mRouteHitCaller;
 } Mirkling;
 
 static struct {
@@ -68,10 +73,15 @@ static void mirklingHitByShot(void* mCaller, void* tColData) {
 	drawBloodOnStage(p, e->mColor);
 	addStageHandlerScreenShake(1);
 	increaseDeathCount();
+	
+	if (e->mRouteHitCB) {
+		e->mRouteHitCB(e->mRouteHitCaller, tColData);
+	}
+	
 	unloadMirkling(e);
 }
 
-static void chooseNewTarget(Mirkling* e) {
+static void chooseNewBottomScreenTarget(Mirkling* e) {
 	Position p = *getHandledPhysicsPositionReference(e->mPhysics);
 	e->mTarget = makePosition(randfrom(40, 600), 1000, 2);
 	Vector3D delta = vecNormalize(vecSub(e->mTarget, p));
@@ -82,25 +92,27 @@ static void chooseNewTarget(Mirkling* e) {
 
 static Color gPossibleBloodColors[] = {COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_YELLOW};
 
-static void loadMirkling(Mirkling* e, double tSpeed) {
-	Position p = makePosition(randfrom(-8, 632), -20, 2);
-	
+static void loadMirkling(Mirkling* e, Position p, double tSpeed) {
 	e->mPhysics = addToPhysicsHandler(p);
 	e->mSpeed = tSpeed;
-	chooseNewTarget(e);
+	e->mTarget = makePosition(0, 0, 0);
 	e->mAnimation = playAnimationLoop(makePosition(0, 0, 0), getMirklingWalkingTextures(), getMirklingWalkingAnimation(), makeRectangleFromTexture(getMirklingWalkingTextures()[0]));
 	setAnimationBasePositionReference(e->mAnimation, getHandledPhysicsPositionReference(e->mPhysics));
 	setAnimationScreenPositionReference(e->mAnimation, getStagePositionReference());
 	e->mCollider = makeColliderFromCirc(makeCollisionCirc(makePosition(8,8,0), 8));
 	e->mCollisionData = makeCollisionData(getMirklingsCollisionList());
 	e->mCollision = addColliderToCollisionHandler(getMirklingsCollisionList(), getHandledPhysicsPositionReference(e->mPhysics), e->mCollider, mirklingHitByShot, e, &e->mCollisionData);	
-	
+	e->mRouteHitCB = NULL;
+	e->mRouteHitCaller = NULL;
+
 	int colorAmount = (sizeof gPossibleBloodColors) / sizeof(Color);
 	e->mColor = gPossibleBloodColors[randfromInteger(0, colorAmount - 1)];
 	e->mActive = 1;
 
 	increaseMirklingAmount();
 }
+
+
 
 static void unloadMirkling(Mirkling* e) {
 	removeFromCollisionHandler(getMirklingsCollisionList(), e->mCollision);
@@ -132,10 +144,6 @@ static void updateMirkling(Mirkling* e) {
 		unloadMirkling(e);
 		return;
 	}
-
-	if (getDistance2D(*p, e->mTarget) < 2) {
-		chooseNewTarget(e);
-	}
 }
 
 
@@ -147,6 +155,13 @@ void updateMirklings() {
 		updateMirkling(&gData.mMirklings[i]);
 	}
 
+}
+
+void setMirklingRouteHitCB(int tID, void(*tCB)(void *tCaller, void *tCollisionData), void * tCaller)
+{
+	Mirkling* e = &gData.mMirklings[tID];
+	e->mRouteHitCB = tCB;
+	e->mRouteHitCaller = tCaller;
 }
 
 
@@ -167,5 +182,18 @@ static Mirkling* findFreeMirklingSpot() {
 void addMirkling(double tSpeed)
 {
 	Mirkling* e = findFreeMirklingSpot();
-	loadMirkling(e, tSpeed);
+	loadMirkling(e, makePosition(randfrom(-8, 632), -20, 2), tSpeed);
+	chooseNewBottomScreenTarget(e);
+}
+
+static int getIndexFromMirklingPointer(Mirkling* e) {
+	return (e - gData.mMirklings) / sizeof(Mirkling);
+}
+
+int addMirklingManual(Position tPos, Vector3D tDir, double tSpeed)
+{
+	Mirkling* e = findFreeMirklingSpot();
+	loadMirkling(e, tPos, tSpeed);
+	addAccelerationToHandledPhysics(e->mPhysics, vecScale(tDir, tSpeed));
+	return getIndexFromMirklingPointer(e);
 }

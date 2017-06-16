@@ -133,3 +133,8 @@ void setStandardLevelMirklingAmount(int tLimit)
 {
 	gData.mLimit = tLimit;
 }
+
+void setStandardFunnyTextPositionAfterLoad(Position tPos)
+{
+	setHandledTextPosition(gData.mFunnyText, tPos);
+}

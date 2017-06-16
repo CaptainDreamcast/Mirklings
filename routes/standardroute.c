@@ -7,6 +7,11 @@
 #include "standardroute/standard3.h"
 #include "standardroute/standard4.h"
 #include "standardroute/standard5.h"
+#include "standardroute/standard6.h"
+#include "standardroute/standard7.h"
+#include "standardroute/standard8.h"
+#include "standardroute/standard9.h"
+#include "standardroute/standard10.h"
 
 
 static struct {
@@ -23,6 +28,11 @@ static Level* gLevels[] = {
 	&StandardLevel3,
 	&StandardLevel4,
 	&StandardLevel5,
+	&StandardLevel6,
+	&StandardLevel7,
+	&StandardLevel8,
+	&StandardLevel9,
+	&StandardLevel10
 };
 
 static void loadStandardRoute() {

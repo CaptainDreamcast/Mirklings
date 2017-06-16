@@ -87,6 +87,21 @@
     <ClCompile Include="..\routes\standardroute\standard5.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\routes\standardroute\standard6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\standardroute\standard7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\standardroute\standard8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\standardroute\standard9.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\standardroute\standard10.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deathcount.h">
@@ -159,6 +174,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\standardroute\standard5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\standardroute\standard6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\standardroute\standard7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\standardroute\standard8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\standardroute\standard9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\standardroute\standard10.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

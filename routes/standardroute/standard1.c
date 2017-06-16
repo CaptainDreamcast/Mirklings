@@ -21,7 +21,7 @@ static void setRandomFunnyText() {
 static void loadStandard1() {
 	setStandardWaveText("Wave 1");
 	setRandomFunnyText();
-	setStandardLevelMirklingAmount(100);
+	setStandardLevelMirklingAmount(15000);
 	loadStandard();
 }
 
