@@ -95,3 +95,8 @@ void setPlayerShotRotation(double tAngle, Vector3D tCenter)
 	gData.mRotationAngle = tAngle;
 	gData.mRotationCenter = tCenter;
 }
+
+void addPlayerShotManual(Position p, double r)
+{
+	addShot(p, r);
+}

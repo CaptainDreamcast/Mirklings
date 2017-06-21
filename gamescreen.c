@@ -21,6 +21,7 @@
 #include "soundeffect.h"
 #include "explosion.h"
 #include "routehandler.h"
+#include "noise.h"
 
 static void loadGameScreen() {
 	initGameSoundEffects();
@@ -33,6 +34,7 @@ static void loadGameScreen() {
 	instantiateActor(PlayerBP);
 	loadParticles();
 	loadExplosions();
+	loadScreenNoise();
 	startNewRoute();
 
 	// activateCollisionHandlerDebugMode();

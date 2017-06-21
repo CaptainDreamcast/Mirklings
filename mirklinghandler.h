@@ -6,6 +6,7 @@
 extern ActorBlueprint MirklingHandlerBP;
 
 TextureData* getMirklingWalkingTextures();
+TextureData* getMirklingRealTextures();
 Animation getMirklingWalkingAnimation();
 
 void resetMirklingAmount();

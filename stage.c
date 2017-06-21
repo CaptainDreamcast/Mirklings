@@ -10,10 +10,14 @@
 
 static struct {
 	int planeID;
+	int realPlaneID;
 	int mBGTexture;
+	int mRealTexture;
 	double mShakeMaximum;
 
 	Vector3D mStageOffset;
+
+	int mIsReal;
 } gData;
 
 
@@ -27,6 +31,7 @@ void resetScreenShakeLimit()
 	gData.mShakeMaximum = getPreciousPeopleAmount()*10;
 }
 
+
 static void loadStage(void* tData) {
 	(void)tData;
 
@@ -35,11 +40,33 @@ static void loadStage(void* tData) {
 	setStageHandlerNoDelayedLoading();
 	setStageHandlerTweening();
 	gData.planeID = addScrollingBackground(1, 1);
+	gData.realPlaneID = addScrollingBackground(1, 1);
 	gData.mBGTexture = addBackgroundElement(gData.planeID, gData.mStageOffset, "assets/stage/BG.pkg", createOneFrameAnimation());
+	gData.mRealTexture = addBackgroundElement(gData.realPlaneID, gData.mStageOffset, "assets/stage/REAL.pkg", createOneFrameAnimation());
+	setScrollingBackgroundInvisible(gData.realPlaneID);
+
 	setStageCameraRange(makeGeoRectangle(0,0,320,1080));
 	gData.mShakeMaximum = 0;
 	increaseScreenShake();
-	
+	gData.mIsReal = 0;
+}
+
+static void setStageReal() {
+	setScrollingBackgroundVisible(gData.realPlaneID);
+	setScrollingBackgroundInvisible(gData.planeID);
+	gData.mIsReal = 1;
+}
+
+static void setStageUnreal() {
+	setScrollingBackgroundVisible(gData.planeID);
+	setScrollingBackgroundInvisible(gData.realPlaneID);
+	gData.mIsReal = 0;
+}
+
+void invertStageReality()
+{
+	if (gData.mIsReal) setStageUnreal();
+	else setStageReal();
 }
 
 static void updateStage(void* tData) {
@@ -69,12 +96,10 @@ Position* getStagePositionReference()
 
 void drawBloodOnStage(Position p, Color c)
 {
-	
-	TextureData* tex = getBackgroundElementTextureData(gData.planeID, gData.mBGTexture);
-	
 	if (c == COLOR_RED) {
 		c = COLOR_DARK_RED;
-	} else if (c == COLOR_BLUE) {
+	}
+	else if (c == COLOR_BLUE) {
 		c = COLOR_DARK_BLUE;
 	}
 	else if (c == COLOR_GREEN) {
@@ -84,7 +109,16 @@ void drawBloodOnStage(Position p, Color c)
 		c = COLOR_DARK_YELLOW;
 	}
 
+	TextureData* tex;
+	if (gData.mIsReal) {
+		tex = getBackgroundElementTextureData(gData.realPlaneID, gData.mRealTexture);
+		c = COLOR_WHITE;
+	}
+	else {
+		tex = getBackgroundElementTextureData(gData.planeID, gData.mBGTexture);
+	}
+
 	p = vecSub(p, gData.mStageOffset);
 
-	drawColoredRectangleToTexture(tex[0], c, makeRectangle((int)p.x, (int)p.y, 8, 8));
+	drawColoredRectangleToTexture(tex[0], c, makeRectangle((int)p.x, (int)p.y, 2, 2));
 }

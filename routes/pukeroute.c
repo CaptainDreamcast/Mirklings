@@ -4,7 +4,16 @@
 
 #include "pukeroute/rotatelevel.h"
 #include "pukeroute/shakelevel.h"
-
+#include "pukeroute/limitedsightlevel.h"
+#include "pukeroute/discolevel.h"
+#include "pukeroute/invisiblemirklingslevel.h"
+#include "pukeroute/textblockingviewlevel.h"
+#include "pukeroute/playforyoulevel.h"
+#include "pukeroute/simulationbreakdown1.h"
+#include "pukeroute/simulationbreakdown2.h"
+#include "pukeroute/simulationbreakdown3.h"
+#include "pukeroute/simulationbreakdown4.h"
+#include "pukeroute/simulationbreakdown5.h"
 
 static struct {
 	int mCurrentLevel;
@@ -16,8 +25,18 @@ static struct {
 
 
 static Level* gLevels[] = {
-	&RotateLevel,
-	&ShakeLevel
+	//&RotateLevel,
+	//&ShakeLevel,
+	//&LimitedSightLevel,
+	//&DiscoLevel,
+	//&InvisibleMirklingsLevel,
+	//&TextBlockingViewLevel,
+	//&PlayForYouLevel,
+	//&SimulationBreakdown1,
+	//&SimulationBreakdown2,
+	//&SimulationBreakdown3,
+	//&SimulationBreakdown4,
+	&SimulationBreakdown5,
 };
 
 static void loadPukeRoute() {

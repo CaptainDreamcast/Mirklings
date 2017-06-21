@@ -30,12 +30,14 @@ static struct {
 	int mTimer;
 
 	int mLimit;
+
+	int mIsKeepingPlayerShotPaused;
+
+	void(*mStoppedShowingWaveScreenCB)(void*);
+	void* mStoppedShowingWaveScreenCaller;
+
 } gData;
 
-static void unpauseGameplay() {
-	unpauseMirklingGeneration();
-	unpausePlayerShooting();
-}
 
 static void pauseGameplay() {
 	pauseMirklingGeneration();
@@ -49,8 +51,15 @@ static void showNextLevelUIOver(void* tCaller) {
 	removeHandledAnimation(gData.mBG);
 	unloadTexture(gData.mBGTexture);
 	gData.mIsShowingUI = 0;
-	unpauseGameplay();
+	unpauseMirklingGeneration();
 
+	if (!gData.mIsKeepingPlayerShotPaused) {
+		unpausePlayerShooting();
+	}
+
+	if (gData.mStoppedShowingWaveScreenCB) {
+		gData.mStoppedShowingWaveScreenCB(gData.mStoppedShowingWaveScreenCaller);
+	}
 }
 
 static void showFunnyText() {
@@ -61,12 +70,17 @@ static void showFunnyText() {
 	Duration buildSpeed = 120;
 
 	gData.mFunnyText = addHandledTextWithBuildup(p, gData.mFunnyString, 0, COLOR_WHITE, size, breakSize, textBoxSize, INF, buildSpeed);
+}
 
+static void showWaveText() {
+	double dx = strlen(gData.mWaveString) * 30;
+	Position p = makePosition(320 - dx / 2, 200, 12);
+	gData.mWaveText = addHandledTextWithInfiniteDurationOnOneLine(p, gData.mWaveString, 0, COLOR_WHITE, makePosition(30, 30, 1));
 }
 
 static void showNextLevelUI() {
 
-	gData.mWaveText = addHandledTextWithInfiniteDurationOnOneLine(makePosition(200, 200, 12), gData.mWaveString, 0, COLOR_WHITE, makePosition(30, 30, 1));
+	showWaveText();
 	showFunnyText();
 	setHandledTextSoundEffects(gData.mFunnyText, getTextSoundEffectCollection());
 
@@ -83,6 +97,9 @@ void loadStandard()
 
 	gData.mIsWaitingToShow = 0;
 	gData.mHasWon = 0;
+	gData.mStoppedShowingWaveScreenCB = NULL;
+	gData.mStoppedShowingWaveScreenCaller = NULL;
+	gData.mIsKeepingPlayerShotPaused = 0;
 	showNextLevelUI();
 	resetMirklingAmount();
 }
@@ -137,4 +154,15 @@ void setStandardLevelMirklingAmount(int tLimit)
 void setStandardFunnyTextPositionAfterLoad(Position tPos)
 {
 	setHandledTextPosition(gData.mFunnyText, tPos);
+}
+
+void setStandardStoppedShowingWaveScreenCB(void(*tCB)(void *), void * tCaller)
+{
+	gData.mStoppedShowingWaveScreenCB = tCB;
+	gData.mStoppedShowingWaveScreenCaller = tCaller;
+}
+
+void setStandardKeepPlayerShotPaused()
+{
+	gData.mIsKeepingPlayerShotPaused = 1;
 }

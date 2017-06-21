@@ -18,6 +18,7 @@ typedef struct {
 	char* mPath;
 	TextureData mTexture;
 
+	int mShadow;
 	int mAnimation;
 	int mActor;
 	int mCollision;
@@ -32,12 +33,17 @@ typedef struct {
 	int mCanScream;
 
 	CollisionData mCollisionData;
+
+	int mIsReal;
 } PreciousPerson;
 
 static struct {
 	int mPreciousPeopleAmount;
 	TextureData mHealthBarTexture;
+	TextureData mShadowTexture;
 	SoundEffectCollection mScreams;
+
+	int mIsReal;
 } gData;
 
 static Animation gPeopleAnimation = {
@@ -108,6 +114,9 @@ static void loadPreciousPerson(void* tData) {
 	setAnimationScreenPositionReference(e->mHealthBar, getStagePositionReference());
 	updateHealthBar(e);
 
+	e->mShadow = playAnimationLoop(vecAdd(e->p, makePosition(0, 42, -0.1)), &gData.mShadowTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mShadowTexture));
+	setAnimationScreenPositionReference(e->mShadow, getStagePositionReference());
+
 	e->mCollider = makeColliderFromRect(makeCollisionRect(makePosition(0, 20, 0), makePosition(64, 64, 0)));
 	e->mCollisionData = makeCollisionData(getPreciousPeopleCollisionList());
 	e->mCollision = addColliderToCollisionHandler(getPreciousPeopleCollisionList(), &e->p, e->mCollider, preciousPersonHit, e, &e->mCollisionData);
@@ -116,6 +125,7 @@ static void loadPreciousPerson(void* tData) {
 	e->mSqueeze = -1;
 
 	e->mCanScream = 1;
+	e->mIsReal = 0;
 
 	gData.mPreciousPeopleAmount++;
 
@@ -124,17 +134,58 @@ static void loadPreciousPerson(void* tData) {
 static void unloadPreciousPerson(void* tData) {
 	PreciousPerson* e = tData;
 	if (e->mSqueeze != -1) removeTween(e->mSqueeze);
-	removeFromCollisionHandler(getPreciousPeopleCollisionList(), e->mCollision);
+
+	if (!gData.mIsReal) {
+		removeFromCollisionHandler(getPreciousPeopleCollisionList(), e->mCollision);
+	}
+	
 	destroyCollider(&e->mCollider);
 	removeHandledAnimation(e->mHealthBar);
 	removeHandledAnimation(e->mAnimation);
+	removeHandledAnimation(e->mShadow);
 	unloadTexture(e->mTexture);
 	gData.mPreciousPeopleAmount--;
 }
 
+static void setPreciousPersonReal(PreciousPerson* e) {
+	setAnimationScale(e->mAnimation, makePosition(0, 0, 1), makePosition(0, 0, 0));
+	setAnimationScale(e->mShadow, makePosition(0, 0, 1), makePosition(0, 0, 0));
+	setAnimationScale(e->mHealthBar, makePosition(0, 0, 1), makePosition(0, 0, 0));
+	removeFromCollisionHandler(getPreciousPeopleCollisionList(), e->mCollision);
+	e->mIsReal = 1;
+}
+
+static void setPreciousPersonUnreal(PreciousPerson* e) {
+	setAnimationScale(e->mAnimation, makePosition(1, 1, 1), makePosition(0, 0, 0));
+	setAnimationScale(e->mShadow, makePosition(1, 1, 1), makePosition(0, 0, 0));
+	updateHealthBar(e);
+	e->mCollision = addColliderToCollisionHandler(getPreciousPeopleCollisionList(), &e->p, e->mCollider, preciousPersonHit, e, &e->mCollisionData);
+	e->mIsReal = 0;
+}
+
+static void updateReality(PreciousPerson* e) {
+	if (e->mIsReal != gData.mIsReal) {
+		if (gData.mIsReal) setPreciousPersonReal(e);
+		else setPreciousPersonUnreal(e);
+	}
+
+
+}
+
+static void updateBounce(PreciousPerson* e) {
+	if (e->mIsReal) return;
+
+	double xfac = 1 + (1 - e->mSqueezeFactor);
+	double yfac = e->mSqueezeFactor;
+	setAnimationScale(e->mAnimation, makePosition(xfac, yfac, 1), makePosition(32, 32, 0));
+	setAnimationScale(e->mShadow, makePosition(xfac, yfac, 1), makePosition(32, -10, 0));
+}
+
 static void updatePreciousPerson(void* tData) {
 	PreciousPerson* e = tData;
-	setAnimationScale(e->mAnimation, makePosition(1 + (1-e->mSqueezeFactor), e->mSqueezeFactor, 1), makePosition(32, 32, 0));
+
+	updateBounce(e);
+	updateReality(e);
 }
 
 ActorBlueprint PreciousPersonBlueprint = {
@@ -157,9 +208,11 @@ static void loadPreciousPeopleSoundEffects() {
 
 void loadPreciousPeople()
 {
+	gData.mIsReal = 0;
 	gData.mPreciousPeopleAmount = 0;
 	resetAnimation(&gPeopleAnimation);
 	gData.mHealthBarTexture = loadTexture("assets/debug/collision_rect.pkg");
+	gData.mShadowTexture = loadTexture("assets/precious/SHADOW.pkg");
 	loadPreciousPeopleSoundEffects();
 
 	int preciousPeopleAmount = 5;
@@ -184,4 +237,9 @@ int hasPreciousPeopleLeft() {
 int getPreciousPeopleAmount()
 {
 	return gData.mPreciousPeopleAmount;
+}
+
+void invertPreciousPeopleReality()
+{
+	gData.mIsReal ^= 1;
 }

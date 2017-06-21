@@ -9,3 +9,4 @@ void pausePlayerShooting();
 void unpausePlayerShooting();
 
 void setPlayerShotRotation(double tAngle, Vector3D tCenter);
+void addPlayerShotManual(Position p, double r);

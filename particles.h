@@ -6,3 +6,5 @@
 void loadParticles();
 void addBloodParticles(Position p, Color c);
 void updateParticles();
+
+void invertParticleReality();

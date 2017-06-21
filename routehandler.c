@@ -17,6 +17,7 @@ static struct {
 } gData;
 
 static Route* gRoutes[] = {
+	//&StandardRoute,
 	&PukeRoute,
 };
 

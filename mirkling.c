@@ -31,6 +31,8 @@ typedef struct {
 	double mSpeed;
 	Position mTarget;
 	Color mColor;
+	TextureData* mRealTextures;
+	TextureData* mUnrealTextures;
 
 	CollisionData mCollisionData;
 
@@ -43,6 +45,10 @@ static struct {
 	int mFreePointer;
 	
 	double mSpawnY;
+
+	int mAreMirklingsInvisible;
+
+	int mAreReal;
 } gData;
 
 void initMirklings() {
@@ -53,6 +59,8 @@ void initMirklings() {
 	}
 
 	gData.mSpawnY = -20;
+	gData.mAreMirklingsInvisible = 0;
+	gData.mAreReal = 0;
 }
 
 static void unloadMirkling(Mirkling* e);
@@ -94,15 +102,25 @@ static void chooseNewBottomScreenTarget(Mirkling* e) {
 }
 
 
-static Color gPossibleBloodColors[] = {COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_YELLOW};
+static Color gPossibleBloodColors[] = { COLOR_RED }; 
 
 static void loadMirkling(Mirkling* e, Position p, double tSpeed) {
 	e->mPhysics = addToPhysicsHandler(p);
 	e->mSpeed = tSpeed;
 	e->mTarget = makePosition(0, 0, 0);
-	e->mAnimation = playAnimationLoop(makePosition(0, 0, 0), getMirklingWalkingTextures(), getMirklingWalkingAnimation(), makeRectangleFromTexture(getMirklingWalkingTextures()[0]));
+	e->mRealTextures = getMirklingRealTextures();
+	e->mUnrealTextures = getMirklingWalkingTextures();
+	TextureData* tex;
+	if (gData.mAreReal) tex = e->mRealTextures;
+	else tex = e->mUnrealTextures;
+	e->mAnimation = playAnimationLoop(makePosition(0, 0, 0), tex, getMirklingWalkingAnimation(), makeRectangleFromTexture(tex[0]));
 	setAnimationBasePositionReference(e->mAnimation, getHandledPhysicsPositionReference(e->mPhysics));
 	setAnimationScreenPositionReference(e->mAnimation, getStagePositionReference());
+	setAnimationCenter(e->mAnimation, makePosition(8,8,0));
+	if (randfrom(0, 2) < 1) inverseAnimationVertical(e->mAnimation);
+	if (gData.mAreMirklingsInvisible) {
+		setAnimationScale(e->mAnimation, makePosition(0, 0, 0), makePosition(0, 0, 0));
+	}
 	e->mCollider = makeColliderFromCirc(makeCollisionCirc(makePosition(8,8,0), 8));
 	e->mCollisionData = makeCollisionData(getMirklingsCollisionList());
 	e->mCollision = addColliderToCollisionHandler(getMirklingsCollisionList(), getHandledPhysicsPositionReference(e->mPhysics), e->mCollider, mirklingHitByShot, e, &e->mCollisionData);	
@@ -171,6 +189,69 @@ void setMirklingRouteHitCB(int tID, void(*tCB)(void *tCaller, void *tCollisionDa
 void setMirklingSpawnY(double tY)
 {
 	gData.mSpawnY = tY;
+}
+
+void setMirklingsInvisible()
+{
+	gData.mAreMirklingsInvisible = 1;
+}
+
+void setMirklingsVisible()
+{
+	gData.mAreMirklingsInvisible = 0;
+}
+
+static void setSingleMirklingReal(Mirkling* e) {
+	changeAnimation(e->mAnimation, e->mRealTextures, getMirklingWalkingAnimation(), makeRectangleFromTexture(e->mRealTextures[0]));
+}
+
+static void setSingleMirklingUnreal(Mirkling* e) {
+	changeAnimation(e->mAnimation, e->mUnrealTextures, getMirklingWalkingAnimation(), makeRectangleFromTexture(e->mUnrealTextures[0]));
+}
+
+static void setMirklingsReal() {
+	int i;
+	for (i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		if (!gData.mMirklings[i].mActive) continue;
+
+		setSingleMirklingReal(&gData.mMirklings[i]);
+	}
+
+	gData.mAreReal = 1;
+}
+
+static void setMirklingsUnreal() {
+	int i;
+	for (i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		if (!gData.mMirklings[i].mActive) continue;
+
+		setSingleMirklingUnreal(&gData.mMirklings[i]);
+	}
+
+	gData.mAreReal = 0;
+}
+
+void invertMirklingsReality()
+{
+	if (gData.mAreReal) setMirklingsUnreal();
+	else setMirklingsReal();
+}
+
+Position getLowestMirklingPosition()
+{
+	Position lowest = makePosition(0, 0, 0);
+	int i;
+	for (i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
+		Mirkling* e = &gData.mMirklings[i];
+		if (!e->mActive) continue;
+
+		Position p = *getHandledPhysicsPositionReference(e->mPhysics);
+		if (p.y > lowest.y) {
+			lowest = p;
+		}
+	}
+
+	return lowest;
 }
 
 

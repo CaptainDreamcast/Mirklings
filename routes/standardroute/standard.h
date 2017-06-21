@@ -12,3 +12,5 @@ void setStandardWaveText(char* tText);
 void setStandardFunnyText(char* tText);
 void setStandardLevelMirklingAmount(int tMirklings);
 void setStandardFunnyTextPositionAfterLoad(Position tPos);
+void setStandardStoppedShowingWaveScreenCB(void(*tCB)(void*), void* tCaller);
+void setStandardKeepPlayerShotPaused();

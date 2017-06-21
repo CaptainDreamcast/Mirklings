@@ -28,6 +28,8 @@ static struct {
 	int mHead;
 	int mAmount;
 	Particle mParticles[MAX_PARTICLE_AMOUNT];
+
+	int mIsReal;
 } gData;
 
 void loadParticles() {
@@ -40,6 +42,8 @@ void loadParticles() {
 	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
 		gData.mParticles[i].mActive = 0;
 	}
+
+	gData.mIsReal = 0;
 }
 
 
@@ -70,6 +74,37 @@ void updateParticles() {
 	
 		updateParticle(&gData.mParticles[i]);
 	}
+}
+
+static void setParticlesReal() {
+	int i;
+	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
+		if (!gData.mParticles[i].mActive) continue;
+
+		Particle* e = &gData.mParticles[i];
+		setAnimationColorType(e->mAnimation, COLOR_WHITE);
+	}
+	
+	gData.mIsReal = 1;
+}
+
+static void setParticlesUnreal() {
+	int i;
+	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
+		if (!gData.mParticles[i].mActive) continue;
+
+		Particle* e = &gData.mParticles[i];
+		setAnimationColorType(e->mAnimation, e->mColor);
+	}
+
+	gData.mIsReal = 0;
+}
+
+void invertParticleReality()
+{
+	if (gData.mIsReal) setParticlesUnreal();
+	else setParticlesReal();
+
 }
 
 
@@ -112,9 +147,15 @@ static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tT
 		p->mAnimation = playAnimationLoop(makePosition(0,0,0), tTexture, createOneFrameAnimation(), makeRectangleFromTexture(tTexture[0]));
 		setAnimationBasePositionReference(p->mAnimation, getHandledPhysicsPositionReference(p->mPhysics));
 		setAnimationScreenPositionReference(p->mAnimation, getStagePositionReference());
-		setAnimationColorType(p->mAnimation, tColor);
-		p->mCenter = makePosition(tTexture->mTextureSize.x / 2, tTexture->mTextureSize.y / 2, 0);
+		if (gData.mIsReal) {
+			setAnimationColorType(p->mAnimation, COLOR_WHITE);
+		}
+		else {
+			setAnimationColorType(p->mAnimation, tColor);
+		}
+		p->mCenter = makePosition(1, 1, 0);
 		setAnimationRotationZ(p->mAnimation, p->mRotation, p->mCenter);
+		setAnimationSize(p->mAnimation, makePosition(2, 2, 1), makePosition(0,0,0));
 
 		p->mNow = 0;
 		p->mDuration = tDuration + randfromInteger(-5 , 5);
@@ -129,7 +170,8 @@ static void addParticle(int tAmount, Position pos, Color tColor, TextureData* tT
 
 void addBloodParticles(Position p, Color c){
 	p.z = 5;
-	addParticle(2, p, c, &gData.mBlood, makeGeoRectangle(-8 - 4, -8 - 4, -8 + 4, -8 + 4), makeGeoRectangle(-1, -2, 2, 1), -1, 1, 40);
+	int amount = 5 ;
+	addParticle(amount, p, c, &gData.mBlood, makeGeoRectangle(-8 - 4, -8 - 4, -8 + 4, -8 + 4), makeGeoRectangle(-1, -2, 2, 1), -1, 1, 40);
 }
 
 

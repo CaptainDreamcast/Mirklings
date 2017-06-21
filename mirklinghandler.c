@@ -10,8 +10,11 @@
 #include "mirkling.h"
 
 static struct {
-	TextureData mWalkingTextures[2];
+	int mTypeAmount;
+	TextureData mWalkingTextures[10][2];
 	Animation mWalkingAnimation;
+
+	TextureData mRealTextures[2];
 
 	int mAmount;
 	int mAmountOnScreen;
@@ -23,13 +26,33 @@ static struct {
 	double mMirklingSpeedMax;
 } gData;
 
+static void loadSingleMirklingType(int i) {
+	char path[1024];
+	sprintf(path, "assets/mirklings/WALKING%d_.pkg", i);
+
+	loadConsecutiveTextures(gData.mWalkingTextures[i], path, gData.mWalkingAnimation.mFrameAmount);
+}
+
+static void loadRealMirklingType() {
+	loadConsecutiveTextures(gData.mRealTextures, "assets/mirklings/REAL_WALKING.pkg", gData.mWalkingAnimation.mFrameAmount);
+}
+
+static void loadMirklingTypes() {
+	int i;
+	for (i = 0; i < gData.mTypeAmount; i++) {
+		loadSingleMirklingType(i);
+	}
+
+	loadRealMirklingType();
+}
+
 static void loadMirklingHandler(void* tData) {
 	(void)tData;
-
+	gData.mTypeAmount = 2;
 	gData.mWalkingAnimation = createEmptyAnimation();
 	gData.mWalkingAnimation.mFrameAmount = 2;
 	gData.mWalkingAnimation.mDuration = 3;
-	loadConsecutiveTextures(gData.mWalkingTextures, "assets/mirklings/WALKING.pkg", gData.mWalkingAnimation.mFrameAmount);
+	loadMirklingTypes();
 
 	gData.mAmount = 0;
 	gData.mAmountOnScreen = 0;
@@ -64,7 +87,13 @@ ActorBlueprint MirklingHandlerBP = {
 
 TextureData* getMirklingWalkingTextures()
 {
-	return gData.mWalkingTextures;
+	int i = randfromInteger(0, gData.mTypeAmount - 1);
+	return gData.mWalkingTextures[i];
+}
+
+TextureData* getMirklingRealTextures()
+{
+	return gData.mRealTextures;
 }
 
 Animation getMirklingWalkingAnimation()

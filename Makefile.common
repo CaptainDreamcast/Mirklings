@@ -1,0 +1,5 @@
+OBJS = main.o collision.o deathcount.o gamescreen.o \
+mirkling.o mirklinghandler.o particles.o player.o preciouspeople.o \
+stage.o titlescreen.o upgrades.o gameoverscreen.o soundeffect.o \
+explosion.o noise.o routehandler.o \
+routes/pukeroute.o routes/standardroute.o

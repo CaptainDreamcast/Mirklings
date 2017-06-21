@@ -114,6 +114,39 @@
     <ClCompile Include="..\routes\pukeroute\shakelevel.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\limitedsightlevel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\discolevel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\invisiblemirklingslevel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\textblockingviewlevel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\playforyoulevel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\noise.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deathcount.h">
@@ -210,6 +243,39 @@
       <Filter>Header Files\standardroute</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\pukeroute\shakelevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\limitedsightlevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\discolevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\invisiblemirklingslevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\textblockingviewlevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\playforyoulevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\noise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown5.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
