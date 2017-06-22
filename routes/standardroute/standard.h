@@ -14,3 +14,6 @@ void setStandardLevelMirklingAmount(int tMirklings);
 void setStandardFunnyTextPositionAfterLoad(Position tPos);
 void setStandardStoppedShowingWaveScreenCB(void(*tCB)(void*), void* tCaller);
 void setStandardKeepPlayerShotPaused();
+
+void setGameUnreal();
+void setGameReal();

@@ -7,6 +7,7 @@
 #include "../../stage.h"
 #include "../../preciouspeople.h"
 #include "../../particles.h"
+#include "../../deathcount.h"
 
 #include "../standardroute/standard.h"
 
@@ -23,6 +24,7 @@ static void setNewScreenNoise() {
 	invertStageReality();
 	invertPreciousPeopleReality();
 	invertParticleReality();
+	invertDeathCountReality();
 }
 
 static void loadSimulationBreakdown4() {

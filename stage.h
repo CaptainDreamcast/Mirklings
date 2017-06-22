@@ -13,3 +13,6 @@ void increaseScreenShake();
 
 void resetScreenShakeLimit();
 void invertStageReality();
+
+void setStageReal();
+void setStageUnreal();

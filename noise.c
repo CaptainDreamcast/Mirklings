@@ -35,7 +35,7 @@ static void updateScreenNoise(void* tCaller) {
 	Noise* e = tCaller;
 	int dx = randfromInteger(-100, 100);
 	int dy = randfromInteger(-100, 100);
-	Position p = makePosition(-200 + dx, -200 + dy, 15);
+	Position p = makePosition(-200 + dx, -200 + dy, 17);
 	setAnimationPosition(e->mAnimation, p);
 
 	if (handleDurationAndCheckIfOver(&e->mNow, e->mDuration)) {

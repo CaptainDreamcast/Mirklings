@@ -76,7 +76,7 @@ void updateParticles() {
 	}
 }
 
-static void setParticlesReal() {
+void setParticlesReal() {
 	int i;
 	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
 		if (!gData.mParticles[i].mActive) continue;
@@ -88,7 +88,7 @@ static void setParticlesReal() {
 	gData.mIsReal = 1;
 }
 
-static void setParticlesUnreal() {
+void setParticlesUnreal() {
 	int i;
 	for (i = 0; i < MAX_PARTICLE_AMOUNT; i++) {
 		if (!gData.mParticles[i].mActive) continue;

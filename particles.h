@@ -8,3 +8,5 @@ void addBloodParticles(Position p, Color c);
 void updateParticles();
 
 void invertParticleReality();
+void setParticlesReal();
+void setParticlesUnreal();

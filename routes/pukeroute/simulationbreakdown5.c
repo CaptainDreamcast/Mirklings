@@ -8,6 +8,7 @@
 #include "../../preciouspeople.h"
 #include "../../particles.h"
 #include "../../mirkling.h"
+#include "../../deathcount.h"
 
 #include "../standardroute/standard.h"
 
@@ -25,6 +26,7 @@ static void setNewScreenNoise() {
 	if (randfromInteger(0, 1)) invertPreciousPeopleReality();
 	if (randfromInteger(0, 1)) invertParticleReality();
 	if (randfromInteger(0, 1)) invertMirklingsReality();
+	if (randfromInteger(0, 1)) invertDeathCountReality();
 }
 
 static void loadSimulationBreakdown5() {

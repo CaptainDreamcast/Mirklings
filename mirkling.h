@@ -12,5 +12,7 @@ void setMirklingSpawnY(double tY);
 void setMirklingsInvisible();
 void setMirklingsVisible();
 void invertMirklingsReality();
+void setMirklingsReal();
+void setMirklingsUnreal();
 
 Position getLowestMirklingPosition();

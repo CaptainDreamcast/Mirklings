@@ -209,7 +209,7 @@ static void setSingleMirklingUnreal(Mirkling* e) {
 	changeAnimation(e->mAnimation, e->mUnrealTextures, getMirklingWalkingAnimation(), makeRectangleFromTexture(e->mUnrealTextures[0]));
 }
 
-static void setMirklingsReal() {
+void setMirklingsReal() {
 	int i;
 	for (i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
 		if (!gData.mMirklings[i].mActive) continue;
@@ -220,7 +220,7 @@ static void setMirklingsReal() {
 	gData.mAreReal = 1;
 }
 
-static void setMirklingsUnreal() {
+void setMirklingsUnreal() {
 	int i;
 	for (i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
 		if (!gData.mMirklings[i].mActive) continue;

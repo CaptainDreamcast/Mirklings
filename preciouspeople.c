@@ -239,6 +239,14 @@ int getPreciousPeopleAmount()
 	return gData.mPreciousPeopleAmount;
 }
 
+void setPreciousPeopleReal() {
+	gData.mIsReal = 1;
+}
+
+void setPreciousPeopleUnreal() {
+	gData.mIsReal = 0;
+}
+
 void invertPreciousPeopleReality()
 {
 	gData.mIsReal ^= 1;

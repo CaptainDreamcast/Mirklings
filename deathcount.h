@@ -6,3 +6,8 @@ extern ActorBlueprint DeathCountBP;
 
 void increaseDeathCount();
 void resetDeathCount();
+int getDeathCount();
+
+void setDeathCountReal();
+void setDeathCountUnreal();
+void invertDeathCountReality();

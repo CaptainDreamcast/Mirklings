@@ -7,11 +7,14 @@
 #include <tari/wrapper.h>
 #include <tari/system.h>
 #include <tari/stagehandler.h>
+#include <tari/logoscreen.h>
 
 #include "gamescreen.h"
 #include "titlescreen.h"
 #include "gameoverscreen.h"
 #include "soundeffect.h"
+#include "endingscreen.h"
+#include "baftascreen.h"
 
 #ifdef DREAMCAST
 KOS_INIT_FLAGS(INIT_DEFAULT);
@@ -58,7 +61,9 @@ int main(int argc, char** argv) {
 	}
 
 	setMainFileSystem();
-	startScreenHandling(&GameOverScreen);
+	
+	setScreenAfterWrapperLogoScreen(&TitleScreen);
+	startScreenHandling(&TitleScreen);
 
 	exitGame();
 

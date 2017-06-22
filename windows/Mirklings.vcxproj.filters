@@ -147,6 +147,30 @@
     <ClCompile Include="..\routes\pukeroute\simulationbreakdown5.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown9.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown10.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown11.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\endingscreen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\baftascreen.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\deathcount.h">
@@ -276,6 +300,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\routes\pukeroute\simulationbreakdown5.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown7.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown10.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\endingscreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\baftascreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

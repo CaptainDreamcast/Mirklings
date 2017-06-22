@@ -121,8 +121,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\baftascreen.c" />
     <ClCompile Include="..\collision.c" />
     <ClCompile Include="..\deathcount.c" />
+    <ClCompile Include="..\endingscreen.c" />
     <ClCompile Include="..\explosion.c" />
     <ClCompile Include="..\gameoverscreen.c" />
     <ClCompile Include="..\gamescreen.c" />
@@ -142,10 +144,16 @@
     <ClCompile Include="..\routes\pukeroute\rotatelevel.c" />
     <ClCompile Include="..\routes\pukeroute\shakelevel.c" />
     <ClCompile Include="..\routes\pukeroute\simulationbreakdown1.c" />
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown10.c" />
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown11.c" />
     <ClCompile Include="..\routes\pukeroute\simulationbreakdown2.c" />
     <ClCompile Include="..\routes\pukeroute\simulationbreakdown3.c" />
     <ClCompile Include="..\routes\pukeroute\simulationbreakdown4.c" />
     <ClCompile Include="..\routes\pukeroute\simulationbreakdown5.c" />
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown6.c" />
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown7.c" />
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown8.c" />
+    <ClCompile Include="..\routes\pukeroute\simulationbreakdown9.c" />
     <ClCompile Include="..\routes\pukeroute\textblockingviewlevel.c" />
     <ClCompile Include="..\routes\standardroute.c" />
     <ClCompile Include="..\routes\standardroute\standard.c" />
@@ -170,8 +178,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\baftascreen.h" />
     <ClInclude Include="..\collision.h" />
     <ClInclude Include="..\deathcount.h" />
+    <ClInclude Include="..\endingscreen.h" />
     <ClInclude Include="..\explosion.h" />
     <ClInclude Include="..\gameoverscreen.h" />
     <ClInclude Include="..\gamescreen.h" />
@@ -192,10 +202,16 @@
     <ClInclude Include="..\routes\pukeroute\rotatelevel.h" />
     <ClInclude Include="..\routes\pukeroute\shakelevel.h" />
     <ClInclude Include="..\routes\pukeroute\simulationbreakdown1.h" />
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown10.h" />
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown11.h" />
     <ClInclude Include="..\routes\pukeroute\simulationbreakdown2.h" />
     <ClInclude Include="..\routes\pukeroute\simulationbreakdown3.h" />
     <ClInclude Include="..\routes\pukeroute\simulationbreakdown4.h" />
     <ClInclude Include="..\routes\pukeroute\simulationbreakdown5.h" />
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown6.h" />
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown7.h" />
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown8.h" />
+    <ClInclude Include="..\routes\pukeroute\simulationbreakdown9.h" />
     <ClInclude Include="..\routes\pukeroute\textblockingviewlevel.h" />
     <ClInclude Include="..\routes\standardroute.h" />
     <ClInclude Include="..\routes\standardroute\standard.h" />

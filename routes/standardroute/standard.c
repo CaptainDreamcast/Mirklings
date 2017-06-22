@@ -16,6 +16,11 @@
 #include "../../collision.h"
 #include "../../soundeffect.h"
 #include "../../player.h"
+#include "../../stage.h"
+#include "../../particles.h"
+#include "../../mirkling.h"
+#include "../../noise.h"
+#include "../../deathcount.h"
 
 static struct {
 	char mWaveString[1024];
@@ -165,4 +170,22 @@ void setStandardStoppedShowingWaveScreenCB(void(*tCB)(void *), void * tCaller)
 void setStandardKeepPlayerShotPaused()
 {
 	gData.mIsKeepingPlayerShotPaused = 1;
+}
+
+void setGameReal() {
+	addScreenNoise(randfromInteger(5, 10));
+	setStageReal();
+	setPreciousPeopleReal();
+	setParticlesReal();
+	setMirklingsReal();
+	setDeathCountReal();
+}
+
+void setGameUnreal() {
+	addScreenNoise(randfromInteger(5, 10));
+	setStageUnreal();
+	setPreciousPeopleUnreal();
+	setParticlesUnreal();
+	setMirklingsUnreal();
+	setDeathCountUnreal();
 }

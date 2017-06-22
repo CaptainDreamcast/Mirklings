@@ -51,13 +51,15 @@ static void loadStage(void* tData) {
 	gData.mIsReal = 0;
 }
 
-static void setStageReal() {
+void setStageReal() {
+	if (gData.mIsReal) return;
 	setScrollingBackgroundVisible(gData.realPlaneID);
 	setScrollingBackgroundInvisible(gData.planeID);
 	gData.mIsReal = 1;
 }
 
-static void setStageUnreal() {
+void setStageUnreal() {
+	if (!gData.mIsReal) return;
 	setScrollingBackgroundVisible(gData.planeID);
 	setScrollingBackgroundInvisible(gData.realPlaneID);
 	gData.mIsReal = 0;
@@ -113,6 +115,7 @@ void drawBloodOnStage(Position p, Color c)
 	if (gData.mIsReal) {
 		tex = getBackgroundElementTextureData(gData.realPlaneID, gData.mRealTexture);
 		c = COLOR_WHITE;
+		return;
 	}
 	else {
 		tex = getBackgroundElementTextureData(gData.planeID, gData.mBGTexture);
