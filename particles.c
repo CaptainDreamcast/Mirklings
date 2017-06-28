@@ -9,7 +9,7 @@
 
 #include "stage.h"
 
-#define MAX_PARTICLE_AMOUNT 1000
+#define MAX_PARTICLE_AMOUNT 100
 
 typedef struct {
 	int mActive;

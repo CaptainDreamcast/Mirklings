@@ -78,7 +78,7 @@ static void updateTitleScreen() {
 }
 
 static Screen* getNextTitleScreenScreen() {
-	if (hasPressedAbortFlank()) {
+	if (hasPressedBFlank() || hasPressedAbortFlank()) {
 		abortScreenHandling();
 	}
 	else if (hasPressedStartFlank()) {

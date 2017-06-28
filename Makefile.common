@@ -1,5 +1,23 @@
 OBJS = main.o collision.o deathcount.o gamescreen.o \
 mirkling.o mirklinghandler.o particles.o player.o preciouspeople.o \
 stage.o titlescreen.o upgrades.o gameoverscreen.o soundeffect.o \
-explosion.o noise.o routehandler.o \
-routes/pukeroute.o routes/standardroute.o
+explosion.o noise.o routehandler.o pussymode.o pausemenu.o titlescreengoof.o \
+endingscreen.o baftascreen.o \
+routes/pukeroute.o routes/standardroute.o \
+routes/pukeroute/discolevel.o routes/pukeroute/invisiblemirklingslevel.o \
+routes/pukeroute/limitedsightlevel.o routes/pukeroute/playforyoulevel.o \
+routes/pukeroute/rotatelevel.o routes/pukeroute/shakelevel.o \
+routes/pukeroute/textblockingviewlevel.o routes/pukeroute/discotatelevel.o \
+routes/pukeroute/simulationbreakdown1.o routes/pukeroute/simulationbreakdown2.o \
+routes/pukeroute/simulationbreakdown3.o routes/pukeroute/simulationbreakdown4.o \
+routes/pukeroute/simulationbreakdown5.o routes/pukeroute/simulationbreakdown6.o \
+routes/pukeroute/simulationbreakdown7.o routes/pukeroute/simulationbreakdown8.o \
+routes/pukeroute/simulationbreakdown9.o routes/pukeroute/simulationbreakdown10.o \
+routes/pukeroute/simulationbreakdown11.o \
+routes/standardroute/standard.o routes/standardroute/standard1.o routes/standardroute/standard2.o \
+routes/standardroute/standard3.o routes/standardroute/standard4.o routes/standardroute/standard5.o \
+routes/standardroute/standard6.o routes/standardroute/standard7.o routes/standardroute/standard8.o \
+routes/standardroute/standard9.o routes/standardroute/standard10.o
+
+
+

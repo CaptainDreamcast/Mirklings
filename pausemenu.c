@@ -54,7 +54,7 @@ static void selectContinue(void* tCaller) {
 }
 
 static void selectTitle(void* tCaller) {
-	(void*)tCaller;
+	(void) tCaller;
 	setNewScreen(&TitleScreen);
 }
 

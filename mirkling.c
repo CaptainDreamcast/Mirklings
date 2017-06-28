@@ -19,7 +19,7 @@
 #include "explosion.h"
 #include "pussymode.h"
 
-#define MAXIMUM_MIRKLING_AMOUNT 10000
+#define MAXIMUM_MIRKLING_AMOUNT 1000
 
 typedef void(*RouteHitCB)(void* tCaller, void* tCollisionData);
 

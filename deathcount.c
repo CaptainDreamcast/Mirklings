@@ -50,7 +50,8 @@ static void updateDeathCount(void* tData) {
 
 	int rawLen = strlen(nText);
 	int len = rawLen * 20 + (rawLen - 1) * (-5) + 6 * 2;
-	setAnimationTexturePosition(gData.mBG, makeRectangle(0,0, min(len, 512), 32));
+	int bglen = min(len, 512);
+	setAnimationTexturePosition(gData.mBG, makeRectangle(0,0, bglen, 32));
 }
 
 ActorBlueprint DeathCountBP = {

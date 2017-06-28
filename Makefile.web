@@ -2,21 +2,6 @@ include Makefile.common
 
 TARGET = 1ST_READ
 
-
-OBJS = $(OBJS) routes/pukeroute/discolevel.o routes/pukeroute/invisiblemirklingslevel.o \
-routes/pukeroute/limitedsightlevel.o routes/pukeroute/playforyoulevel.o \
-routes/pukeroute/rotatelevel.o routes/pukeroute/shakelevel.o \
-routes/pukeroute/textblockingviewlevel.o \
-routes/pukeroute/simulationbreakdown1.o routes/pukeroute/simulationbreakdown2.o \
-routes/pukeroute/simulationbreakdown3.o routes/pukeroute/simulationbreakdown4.o \
-routes/pukeroute/simulationbreakdown5.o
-
-OBJS = $(OBJS) routes/standardroute/standard.o routes/standardroute/standard1.o routes/standardroute/standard2.o \
-routes/standardroute/standard3.o routes/standardroute/standard4.o routes/standardroute/standard5.o \
-routes/standardroute/standard6.o routes/standardroute/standard7.o routes/standardroute/standard8.o \
-routes/standardroute/standard9.o routes/standardroute/standard10.o
-
-
 OPTFLAGS=-O3 -fomit-frame-pointer -fno-delayed-branch -DDREAMCAST -Wall -Werror
 KOS_ROMDISK_DIR = romdisk_boot
 KOS_BASE = .

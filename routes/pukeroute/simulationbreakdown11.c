@@ -13,11 +13,6 @@
 
 #include "../standardroute/standard.h"
 
-static struct {
-	Duration mNow;
-	Duration mDuration;
-
-} gData;
 
 static void lastMirklingHit(void* tCaller, void* tCollisionData) {
 	(void)tCaller;

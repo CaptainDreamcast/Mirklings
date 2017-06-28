@@ -12,12 +12,6 @@
 
 #include "../standardroute/standard.h"
 
-static struct {
-	Duration mNow;
-	Duration mDuration;
-
-} gData;
-
 static void loadSimulationBreakdown7() {
 	setStandardWaveText("Wave 46");
 	

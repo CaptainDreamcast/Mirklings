@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
 	setScreenSize(640, 480);
 	
 	initTariWrapperWithDefaultFlags();
-	setFont("$/rd/fonts/segoe.hdr", "$/rd/fonts/segoe.png");
+	//setFont("$/rd/fonts/segoe.hdr", "$/rd/fonts/segoe.pkg");
 
 	logg("Check framerate");
 	FramerateSelectReturnType framerateReturnType = selectFramerate();
