@@ -22,6 +22,7 @@
 #include "explosion.h"
 #include "routehandler.h"
 #include "noise.h"
+#include "pausemenu.h"
 
 static void loadGameScreen() {
 	initGameSoundEffects();
@@ -32,6 +33,7 @@ static void loadGameScreen() {
 	loadUpgrades();
 	instantiateActor(DeathCountBP);
 	instantiateActor(PlayerBP);
+	instantiateActor(PauseMenuBP);
 	loadParticles();
 	loadExplosions();
 	loadScreenNoise();

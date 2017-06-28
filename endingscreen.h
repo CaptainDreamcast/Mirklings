@@ -6,3 +6,5 @@ extern Screen EndingScreen;
 
 void setGoodEnding();
 void setBadEnding();
+
+int hasPlayerFinishedGame();

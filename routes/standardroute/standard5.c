@@ -9,7 +9,6 @@
 static char gFunnyTexts[][1024] = {
 	"Wow, this almost felt like a real level. Hope you reacted in time. It only goes up from here (lie).",
 	"The cramp in your hand means you're alive.",
-	"Imagine doing that for two hours straight. No, don't say anything. Just imagine... Imagine some more... Ok, you can keep playing now."
 };
 
 static char gFailText[1024] = "Don't worry about the broken houses my dude, next levels are gonna be chill. No, really. Then again, maybe not, I don't know man, I'm working on Wave 5 now how should I know.";

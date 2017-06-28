@@ -29,6 +29,8 @@ static struct {
 
 	Duration mCounterNow;
 	Duration mCounterSingleDuration;
+
+	int mIsGameFinished;
 } gData;
 
 static void updateCounterText() {
@@ -76,7 +78,7 @@ static void loadEndingScreen() {
 		loadBadEndingScreen();
 	}
 
-	
+	gData.mIsGameFinished = 1;
 	addFadeIn(60, NULL, NULL);
 }
 
@@ -114,4 +116,9 @@ void setGoodEnding() {
 
 void setBadEnding() {
 	gData.mIsGoodEnding = 0;
+}
+
+int hasPlayerFinishedGame()
+{
+	return gData.mIsGameFinished;
 }

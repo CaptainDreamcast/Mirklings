@@ -7,9 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"This is kinda the normal route where we pretend Mirklings is a proper game.",
-	"Make sure to rate this game 4/5 stars so nobody thinks we're faking 5/5 star ratings, okay?",
-	"I feel like this is a good time for a marketing plug, buy all your light pistols at the Retrospiel video game store in cologne. Retrospiel. Google it."
+	"This is part of the normal levels where we pretend Mirklings is a proper game.",
 };
 
 static char gFailText[1024] = "Your gameplay style is like a car crash in motion, we all know it's not gonna end well, but we can't avert our eyes.";

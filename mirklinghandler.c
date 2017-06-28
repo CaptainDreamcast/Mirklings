@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 
+#include <tari/wrapper.h>
 #include <tari/datastructures.h>
 #include <tari/math.h>
 #include <tari/file.h>
@@ -71,7 +72,7 @@ static void updateMirklingHandler(void* tData) {
 
 	updateMirklings();
 
-	if (gData.mIsGenerationPaused) return;
+	if (gData.mIsGenerationPaused || isWrapperPaused()) return;
 
 	int i;
 	for (i = 0; i < gData.mMirklingsGeneratedPerFrame; i++) {

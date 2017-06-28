@@ -14,6 +14,7 @@
 static struct {
 	int mCurrentRoute;
 	int mAmount;
+	int mIsContinuing;
 } gData;
 
 static Route* gRoutes[] = {
@@ -29,6 +30,10 @@ static void resetAllRoutes() {
 }
 
 void reloadRoute() {
+	if (gData.mIsContinuing) {
+		gData.mIsContinuing = 0;
+		return;
+	}
 	gData.mAmount = (sizeof gRoutes) / sizeof(Route*);
 
 	int i;
@@ -54,4 +59,12 @@ void updateRouteHandler() {
 	}
 
 	gRoutes[gData.mCurrentRoute]->mUpdate();
+}
+
+void setCurrentRouteToContinue()
+{
+	gData.mIsContinuing = 1;
+	if (gRoutes[gData.mCurrentRoute]->mSetToContinue) {
+		gRoutes[gData.mCurrentRoute]->mSetToContinue();
+	}
 }

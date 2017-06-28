@@ -5,6 +5,7 @@
 #include <tari/soundeffect.h>
 
 #include "stage.h"
+#include "pussymode.h"
 
 static struct {
 	int mBoomSFX;
@@ -24,7 +25,10 @@ void loadExplosions()
 
 void addExplosion(Position p, double r) {
 	playSoundEffect(gData.mBoomSFX);
-	addStageHandlerScreenShake(50);
+
+	if (!isInPussyMode()) {
+		addStageHandlerScreenShake(50);
+	}
 
 	double fac = 2.5;
 	double cfac = fac / 2;

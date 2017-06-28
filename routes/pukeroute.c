@@ -5,9 +5,21 @@
 #include "../levelhandler.h"
 #include "../endingscreen.h"
 
+#include "standardroute/trailerroute.h"
+#include "standardroute/standard1.h"
+#include "standardroute/standard2.h"
+#include "standardroute/standard3.h"
+#include "standardroute/standard4.h"
+#include "standardroute/standard5.h"
+#include "standardroute/standard6.h"
+#include "standardroute/standard7.h"
+#include "standardroute/standard8.h"
+#include "standardroute/standard9.h"
+#include "standardroute/standard10.h"
 #include "pukeroute/rotatelevel.h"
 #include "pukeroute/shakelevel.h"
 #include "pukeroute/limitedsightlevel.h"
+#include "pukeroute/nosightlevel.h"
 #include "pukeroute/discolevel.h"
 #include "pukeroute/invisiblemirklingslevel.h"
 #include "pukeroute/textblockingviewlevel.h"
@@ -23,24 +35,45 @@
 #include "pukeroute/simulationbreakdown9.h"
 #include "pukeroute/simulationbreakdown10.h"
 #include "pukeroute/simulationbreakdown11.h"
+#include "pukeroute/willkillyourparentslevel.h"
+#include "pukeroute/maybekilledyourparentslevel.h"
+#include "pukeroute/discotatelevel.h"
 
 static struct {
 	int mCurrentLevel;
 	int mAmount;
 
 	int mIsFinished;
-	
+	int mIsContinuing;
+
 } gData;
 
 
 static Level* gLevels[] = {
-	//&RotateLevel,
-	//&ShakeLevel,
+	//&TrailerRoute,
+	//&StandardLevel1,
+	//&StandardLevel2,
+	//&StandardLevel3,
+	//&StandardLevel4,
+	//&StandardLevel5,
+	//&StandardLevel6,
 	//&LimitedSightLevel,
+	//&NoSightLevel,
+	//&StandardLevel7,
+	//&ShakeLevel,						// 10
+
+	//&RotateLevel,
+	//&StandardLevel8,
+	//&WillKillYourParentsLevel,
+	//&MaybeKilledYourParentsLevel,		// 15
 	//&DiscoLevel,
+	//&DiscotateLevel,
+	//&StandardLevel9,
 	//&InvisibleMirklingsLevel,
+	&StandardLevel10,					//20
+	
 	//&TextBlockingViewLevel,
-	&PlayForYouLevel,
+	//&PlayForYouLevel,
 	//&SimulationBreakdown1,
 	//&SimulationBreakdown2,
 	//&SimulationBreakdown3,
@@ -48,15 +81,19 @@ static Level* gLevels[] = {
 	//&SimulationBreakdown5,
 	//&SimulationBreakdown6,
 	//&SimulationBreakdown7,
-	&SimulationBreakdown8,
-	&SimulationBreakdown9,
-	&SimulationBreakdown10,
-	&SimulationBreakdown11,
+	//&SimulationBreakdown8,
+	//&SimulationBreakdown9,
+	//&SimulationBreakdown10,
+	//&SimulationBreakdown11,
 };
 
 static void loadPukeRoute() {
 	gData.mAmount = (sizeof gLevels) / sizeof(Level*);
-	gData.mCurrentLevel = 0;
+
+	if (!gData.mIsContinuing) {
+		gData.mCurrentLevel = 0;
+	}
+	gData.mIsContinuing = 0;
 
 	gLevels[gData.mCurrentLevel]->mLoadLevel();
 }
@@ -95,10 +132,15 @@ static int canPukeRouteBePlayed() {
 	return !gData.mIsFinished;
 }
 
+static void setPukeRouteToContinue() {
+	gData.mIsContinuing = 1;
+}
+
 Route PukeRoute = {
 	.mLoadRoute = loadPukeRoute,
 	.mReset = resetPukeRoute,
 	.mUpdate = updatePukeRoute,
 	.mHasLost = hasLostPukeRoute,
 	.mCanBePlayed = canPukeRouteBePlayed,
+	.mSetToContinue = setPukeRouteToContinue,
 };

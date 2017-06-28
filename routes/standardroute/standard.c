@@ -21,6 +21,8 @@
 #include "../../mirkling.h"
 #include "../../noise.h"
 #include "../../deathcount.h"
+#include "../../pausemenu.h"
+
 
 static struct {
 	char mWaveString[1024];
@@ -57,6 +59,7 @@ static void showNextLevelUIOver(void* tCaller) {
 	unloadTexture(gData.mBGTexture);
 	gData.mIsShowingUI = 0;
 	unpauseMirklingGeneration();
+	setPauseMenuPossible();
 
 	if (!gData.mIsKeepingPlayerShotPaused) {
 		unpausePlayerShooting();
@@ -88,11 +91,12 @@ static void showNextLevelUI() {
 	showWaveText();
 	showFunnyText();
 	setHandledTextSoundEffects(gData.mFunnyText, getTextSoundEffectCollection());
+	setPauseMenuImpossible();
 
 	gData.mBG = playAnimationLoop(makePosition(-320, -240, 11), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
 	setAnimationSize(gData.mBG, makePosition(1280, 960, 1), makePosition(0, 0, 0));
 	gData.mIsShowingUI = 1;
-	gData.mTimer = addTimerCB(200, showNextLevelUIOver, NULL);
+	gData.mTimer = addTimerCB(400, showNextLevelUIOver, NULL);
 }
 
 void loadStandard()
@@ -153,7 +157,14 @@ void setStandardFunnyText(char * tText)
 
 void setStandardLevelMirklingAmount(int tLimit)
 {
-	gData.mLimit = tLimit;
+	int variance = (int)(0.1*tLimit);
+	tLimit = randfromInteger(tLimit-variance, tLimit);
+
+	gData.mLimit = max(1, tLimit);
+}
+
+int getStandardLevelMirklingAmount() {
+	return gData.mLimit;
 }
 
 void setStandardFunnyTextPositionAfterLoad(Position tPos)
@@ -170,6 +181,11 @@ void setStandardStoppedShowingWaveScreenCB(void(*tCB)(void *), void * tCaller)
 void setStandardKeepPlayerShotPaused()
 {
 	gData.mIsKeepingPlayerShotPaused = 1;
+}
+
+int getStandardGeneratedMirklingAmount()
+{
+	return getMirklingAmount();
 }
 
 void setGameReal() {

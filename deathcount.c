@@ -17,6 +17,7 @@ static struct {
 	int mBG;
 
 	int mIsReal;
+	int mIsContinuing;
 } gData;
 
 static void updateDeathCount(void* tCaller);
@@ -24,8 +25,12 @@ static void updateDeathCount(void* tCaller);
 static void loadDeathCount(void* tData) {
 	(void)tData;
 
-	gData.mDeathCount = 0;
-	gData.mDeathCount = addHandledText(makePosition(26, 28, 15), "Death Count: 0", 0, COLOR_YELLOW, makePosition(20, 20, 1), makePosition(-5, 0, 0), makePosition(INF, INF, INF), INF);
+	if (!gData.mIsContinuing) {
+		gData.mDeathCount = 0;
+	}
+	gData.mIsContinuing = 0;
+
+	gData.mDeathCountText = addHandledText(makePosition(26, 28, 15), "Death Count: 0", 0, COLOR_YELLOW, makePosition(20, 20, 1), makePosition(-5, 0, 0), makePosition(INF, INF, INF), INF);
 
 	gData.mBGTexture = loadTexture("assets/counter/BG.pkg");
 	gData.mBG = playAnimationLoop(makePosition(20, 20, 14), &gData.mBGTexture, createOneFrameAnimation(), makeRectangle(0, 0, 200, 32));
@@ -58,13 +63,13 @@ void increaseDeathCount()
 	gData.mDeathCount++;
 }
 
-void resetDeathCount()
-{
-	gData.mDeathCount = 0;
-}
-
 int getDeathCount() {
 	return gData.mDeathCount;
+}
+
+void setDeathCountToContinue()
+{
+	gData.mIsContinuing = 1;
 }
 
 void setDeathCountReal()

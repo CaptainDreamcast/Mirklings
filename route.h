@@ -7,5 +7,6 @@ typedef struct {
 	int(*mHasLost)();
 	void(*mLoadRoute)();
 	void(*mUpdate)();
+	void(*mSetToContinue)();
 } Route;
 

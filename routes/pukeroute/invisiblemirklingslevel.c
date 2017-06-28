@@ -9,9 +9,7 @@
 #include "../../mirkling.h"
 
 static char gFunnyTexts[][1024] = {
-	"This game is so fun, you'll puke with joy! Joy, supper, lunch... anything, really!",
-	"You thought screen shake was bad? Check this out:",
-	"Every day we stray further from God's light into the unfeeling abyss of darkness."
+	"Heads up: The Mirklings in this level are invisible. No, they really are, keep bombing the air and you'll see."
 };
 
 static void setRandomFunnyText() {
@@ -22,7 +20,7 @@ static void setRandomFunnyText() {
 
 
 static void loadInvisibleMirklingsLevel() {
-	setStandardWaveText("Round 4");
+	setStandardWaveText("Round 19");
 	setRandomFunnyText();
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();

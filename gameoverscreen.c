@@ -7,9 +7,13 @@
 #include <tari/texthandler.h>
 #include <tari/math.h>
 #include <tari/timer.h>
+#include <tari/optionhandler.h>
 
 #include "titlescreen.h"
 #include "soundeffect.h"
+#include "gamescreen.h"
+#include "routehandler.h"
+#include "deathcount.h"
 
 static struct {
 	TextureData mBGTexture;
@@ -17,19 +21,33 @@ static struct {
 	int mFunnyText;
 } gData;
 
-char gFunnyText[] = "how did you even manage to die i mean wtf dude";
+static char gFunnyTexts[][1024] = { 
+	"don't feel bad, mirklings is a hard game, y'know" ,
+	"you were close, only [numerror] mirklings more",
+	"everyone is dead and it's probably your fault"
+};
 
-static void forceToTitle(void* tCaller) {
-	(void)tCaller;
-	
-	setNewScreen(&TitleScreen);
-}
+static char gFunnyTextAmount = 3;
 
 static void addGameOverText() {
-	Position textPos = makePosition(85, 278, 2);
-	gData.mFunnyText = addHandledTextWithBuildup(textPos, gFunnyText, 0, COLOR_WHITE, makePosition(15, 15, 1), makePosition(-5,0,0), makePosition(INF, INF, INF), INF, 10);
+	Position textPos = makePosition(85, 190, 2);
+	
+	int i = randfromInteger(0, gFunnyTextAmount - 1);
+	gData.mFunnyText = addHandledTextWithBuildup(textPos, gFunnyTexts[i], 0, COLOR_WHITE, makePosition(15, 15, 1), makePosition(-5,0,0), makePosition(INF, INF, INF), INF, 10);
 	setHandledTextSoundEffects(gData.mFunnyText, getTextSoundEffectCollection());
 	playSoundEffect(getTextSoundEffectCollection().mSoundEffects[0]);
+}
+
+static void selectContinueOption(void* tCaller) {
+	(void)tCaller;
+	setCurrentRouteToContinue();
+	setDeathCountToContinue();
+	setNewScreen(&GameScreen);
+}
+
+static void selectTitleOption(void* tCaller) {
+	(void)tCaller;
+	setNewScreen(&TitleScreen);
 }
 
 static void loadGameOverScreen() {
@@ -37,11 +55,20 @@ static void loadGameOverScreen() {
 	gData.mBGTexture = loadTexture("assets/gameover/BG.pkg");
 	gData.mBG = playAnimationLoop(makePosition(0,0,1), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
 	addGameOverText();
-	addTimerCB(200, forceToTitle, NULL);
+	instantiateActor(getOptionHandlerBlueprint());
+	setOptionButtonA();
+	setOptionButtonStart();
+	setOptionTextSize(20);
+	setOptionTextBreakSize(-5);
+	int optionX = 80;
+	addOption(makePosition(optionX, 270, 2), "Continue (not recommended)" , selectContinueOption, NULL);
+	addOption(makePosition(optionX, 330, 2), "Return to title and give up", selectTitleOption, NULL);
+	addOption(makePosition(optionX, 360, 2), "because life is empty and", selectTitleOption, NULL);
+	addOption(makePosition(optionX, 390, 2), "winning Mirklings won't change that", selectTitleOption, NULL);
 }
 
 static Screen* getNextGameOverScreenScreen() {
-	if (hasPressedAbortFlank() || hasPressedStartFlank()) {
+	if (hasPressedAbortFlank()) {
 		return &TitleScreen;
 	}
 

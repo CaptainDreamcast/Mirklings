@@ -8,9 +8,7 @@
 #include "../standardroute/standard.h"
 
 static char gFunnyTexts[][1024] = {
-	"This game is so fun, you'll puke with joy! Joy, supper, lunch... anything, really!",
-	"You thought screen shake was bad? Check this out:",
-	"Every day we stray further from God's light into the unfeeling abyss of darkness."
+	"This is a very stylish game. If the lights don't match up with the music it's because you played the game wrong."
 };
 
 static struct {
@@ -28,8 +26,6 @@ static double gScreenTints[SCREEN_TINT_AMOUNT][3] = {
 	{1, 0.5, 1},
 };
 
-
-
 static void setNextScreenTint() {
 	int i = gData.mCurrentTint;
 	while (i == gData.mCurrentTint) {
@@ -46,7 +42,7 @@ static void setRandomFunnyText() {
 
 
 static void loadDiscoLevel() {
-	setStandardWaveText("Round 3");
+	setStandardWaveText("Wave 15");
 	setRandomFunnyText();
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();

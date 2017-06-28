@@ -1,11 +1,11 @@
-#include "standard1.h"
+#include "trailerroute.h"
 
 #include <tari/math.h>
 
 #include "standard.h"
 
 static char gFunnyTexts[][1024] = {
-	"Welcome to Mirklings, first game to kill a man through repetitive gameplay.",
+	"Yeah, you hated La Morte di un Cane's trailer, so I'll do the opposite with Mirklings. Pure Gameplay. Suffer.",
 };
 
 
@@ -15,17 +15,16 @@ static void setRandomFunnyText() {
 	setStandardFunnyText(gFunnyTexts[i]);
 }
 
-
-static void loadStandard1() {
-	setStandardWaveText("Wave 1");
+static void loadTrailerRoute() {
+	setStandardWaveText("Super trailer wave");
 	setRandomFunnyText();
-	setStandardLevelMirklingAmount(15000);
+	setStandardLevelMirklingAmount(15000000);
 	loadStandard();
 }
 
-Level StandardLevel1 = {
+Level TrailerRoute = {
 
-	.mLoadLevel = loadStandard1,
+	.mLoadLevel = loadTrailerRoute,
 	.mUpdateLevel = updateStandard,
 	.mHasLost = hasLostStandard,
 	.mHasWon = hasWonStandard

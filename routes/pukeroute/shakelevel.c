@@ -12,7 +12,7 @@
 
 static char gFunnyTexts[][1024] = {
 	"In case it helps you, I also got pretty seasick from making the game, we're pretty much puke-buddies.",
-	"Don't worry bro, it can only get better from here, right?",
+	"This level is dedicated to Vlambeer.",
 	"Try closing your eyes to amplify the seasickness effect. It really makes things worse."
 };
 
@@ -25,7 +25,7 @@ static void setRandomFunnyText() {
 
 
 static void loadShakeLevel() {
-	setStandardWaveText("Round 2");
+	setStandardWaveText("Wave 10");
 	setRandomFunnyText();
 	setStandardLevelMirklingAmount(10000);
 	loadStandard();

@@ -6,7 +6,6 @@
 #include "../../preciouspeople.h"
 
 static char gFunnyTexts[][1024] = {
-	"Yeah sorry that was a little long I don't know what went wrong here, let me try again.",
 	"Boom boom boom, that was fun, eh? You won't close the game anytime soon, right? BY GOD PLEASE DON'T LEAVE",
 	"They're squishy, they explode. It's a simple Mirklings life. We should envy them and their sweet release of death.",
 };

@@ -7,9 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"You're almost done. There's only 10 waves per route. Probably. I can really only talk for this route here.",
-	"If you still have houses left, the game up 'till this point must have been too easy.",
-	"Have a little break."
+	"Have a little break. I know the last level was probably hard on your stomach. You earned this."
 };
 
 static char gFailText[1024] = "On the upside, if you can make it through this with one house, you'll be a legend.";
@@ -27,7 +25,7 @@ static void setRandomFunnyText() {
 
 
 static void loadStandard8() {
-	setStandardWaveText("Wave 8");
+	setStandardWaveText("Wave 12");
 	setRandomFunnyText();
 	setMirklingSpeed(0.5, 1);
 	setMirklingsGeneratedPerFrame(5);

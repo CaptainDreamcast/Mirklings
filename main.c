@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 
 	setGameName("MIRKLINGS");
 	setScreenSize(640, 480);
-
+	
 	initTariWrapperWithDefaultFlags();
 	setFont("$/rd/fonts/segoe.hdr", "$/rd/fonts/segoe.png");
 

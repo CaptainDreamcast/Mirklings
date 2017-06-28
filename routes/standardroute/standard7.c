@@ -7,7 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"I know what you're thinking, and yes."
+	"What a relief, huh? You can finally enjoy Mirkling's HD graphics again."
 };
 
 static void setRandomFunnyText() {
@@ -18,7 +18,7 @@ static void setRandomFunnyText() {
 
 
 static void loadStandard7() {
-	setStandardWaveText("Wave 7");
+	setStandardWaveText("Wave 9");
 	setRandomFunnyText();
 	setMirklingSpeed(4, 8);
 	setMirklingsGeneratedPerFrame(40);

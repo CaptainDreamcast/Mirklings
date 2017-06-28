@@ -7,9 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"Hey, that one was okay. Don't glare at me like that. It's a learning experience for both of us.",
-	"Do you enjoy those levels the most, the ones where you can blow up the defenseless masses?",
-	"I told you so."
+	"This is a completely boring standard level. Don't worry. Trust me.",
 };
 
 static char gFailText[1024] = "You must be sweating right now! Another joke level and you're dead!";
@@ -27,7 +25,7 @@ static void setRandomFunnyText() {
 
 
 static void loadStandard9() {
-	setStandardWaveText("Wave 9");
+	setStandardWaveText("Wave 18");
 	setRandomFunnyText();
 	setMirklingSpeed(0.5, 1);
 	setMirklingsGeneratedPerFrame(10);

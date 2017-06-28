@@ -14,13 +14,29 @@
 #include "gamescreen.h"
 #include "soundeffect.h"
 #include "routehandler.h"
+#include "titlescreengoof.h"
+#include "endingscreen.h"
 
 static struct {
 	TextureData mBGTexture;
 	int mBG;
 
 	int mPressStartText;
+	int mHasBeenGoofed;
 } gData;
+
+static void changeToGoofText() {
+	removeHandledText(gData.mPressStartText);
+	Position pressStartPosition = makePosition(20, 300, 13);
+	gData.mPressStartText = addHandledTextWithBuildup(pressStartPosition, "Press start and I hope you learned you lesson now. I am the title screen and you are not even a screen.", 0, COLOR_WHITE, makePosition(20, 20, 1), makePosition(0, 10, 0), makePosition(600, INF, 0), INF, 60);
+	setHandledTextSoundEffects(gData.mPressStartText, getTextSoundEffectCollection());
+}
+
+static void changeToSeriousText() {
+	removeHandledText(gData.mPressStartText);
+	Position pressStartPosition = makePosition(220, 300, 13);
+	gData.mPressStartText = addHandledTextWithBuildup(pressStartPosition, "Press start", 0, COLOR_WHITE, makePosition(20, 20, 1), makePosition(0, 10, 0), makePosition(600, INF, 0), INF, 60);
+}
 
 static void loadTitleScreen() {
 	initGameSoundEffects();
@@ -30,10 +46,35 @@ static void loadTitleScreen() {
 	Position pressStartPosition = makePosition(20, 300, 13);
 	gData.mPressStartText = addHandledTextWithBuildup(pressStartPosition, "Press start and please don't shoot at the title screen because I am the title screen and I generally don't appreciate being shot at", 0, COLOR_WHITE, makePosition(20, 20, 1), makePosition(0, 10, 0), makePosition(600, INF, 0), INF, 60);
 	setHandledTextSoundEffects(gData.mPressStartText, getTextSoundEffectCollection());
+
+	if (gData.mHasBeenGoofed) {
+		changeToGoofText();
+	}
+
 	loadMirklingsCollisions();
 	instantiateActor(StageBP);
 	instantiateActor(MirklingHandlerBP);
 	reloadRoute();
+	resumeWrapper();
+
+	if (hasPlayerFinishedGame()) {
+		gData.mHasBeenGoofed = 1;
+		setStageReal();
+		setMirklingsGeneratedPerFrame(0);
+		changeToSeriousText();
+	}
+}
+
+static void startTitleScreenGoofAndChangeText() {
+	startTitleScreenGoof();
+	changeToGoofText();
+	gData.mHasBeenGoofed = 1;
+}
+
+static void updateTitleScreen() {
+	if (!gData.mHasBeenGoofed && hasShotGunFlank()) {
+		startTitleScreenGoofAndChangeText();
+	}
 }
 
 static Screen* getNextTitleScreenScreen() {
@@ -49,5 +90,6 @@ static Screen* getNextTitleScreenScreen() {
 
 Screen TitleScreen = {
 	.mLoad = loadTitleScreen,
-	.mGetNextScreen = getNextTitleScreenScreen
+	.mGetNextScreen = getNextTitleScreenScreen,
+	.mUpdate = updateTitleScreen
 };

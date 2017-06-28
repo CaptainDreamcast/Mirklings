@@ -17,6 +17,7 @@
 #include "particles.h"
 #include "deathcount.h"
 #include "explosion.h"
+#include "pussymode.h"
 
 #define MAXIMUM_MIRKLING_AMOUNT 10000
 
@@ -33,6 +34,9 @@ typedef struct {
 	Color mColor;
 	TextureData* mRealTextures;
 	TextureData* mUnrealTextures;
+	Position* mPosition;
+	Velocity* mVelocity;
+	Acceleration* mAcceleration;
 
 	CollisionData mCollisionData;
 
@@ -49,6 +53,9 @@ static struct {
 	int mAreMirklingsInvisible;
 
 	int mAreReal;
+
+	Position mImpactPosition;
+	double mImpactPower;
 } gData;
 
 void initMirklings() {
@@ -61,6 +68,8 @@ void initMirklings() {
 	gData.mSpawnY = -20;
 	gData.mAreMirklingsInvisible = 0;
 	gData.mAreReal = 0;
+	gData.mImpactPosition = makePosition(0, 0, 0);
+	gData.mImpactPower = 0;
 }
 
 static void unloadMirkling(Mirkling* e);
@@ -83,7 +92,9 @@ static void mirklingHitByShot(void* mCaller, void* tColData) {
 
 	addBloodParticles(vecAdd(makePosition(8, 8, 0), p), e->mColor);
 	drawBloodOnStage(p, e->mColor);
-	addStageHandlerScreenShake(1);
+	if (!isInPussyMode()) {
+		addStageHandlerScreenShake(1);
+	}
 	increaseDeathCount();
 	
 	if (e->mRouteHitCB) {
@@ -106,7 +117,11 @@ static Color gPossibleBloodColors[] = { COLOR_RED };
 
 static void loadMirkling(Mirkling* e, Position p, double tSpeed) {
 	e->mPhysics = addToPhysicsHandler(p);
+	e->mPosition = getHandledPhysicsPositionReference(e->mPhysics);
+	e->mVelocity = getHandledPhysicsVelocityReference(e->mPhysics);
+	e->mAcceleration = getHandledPhysicsAccelerationReference(e->mPhysics);
 	e->mSpeed = tSpeed;
+	setHandledPhysicsMaxVelocity(e->mPhysics, e->mSpeed);
 	e->mTarget = makePosition(0, 0, 0);
 	e->mRealTextures = getMirklingRealTextures();
 	e->mUnrealTextures = getMirklingWalkingTextures();
@@ -154,6 +169,18 @@ void shutdownMirklings() {
 	}
 }
 
+static void updateMirklingDirection(Mirkling* e) {
+	Vector3D targetDir = vecSub(e->mTarget, *e->mPosition);
+	Vector3D impactDir = vecSub(*e->mPosition, gData.mImpactPosition);
+	double impactScale = fmin(1, gData.mImpactPower*(1 / (vecLength(impactDir)+1e-6)));
+
+	targetDir = normalizeVelocity(targetDir);
+	impactDir = normalizeVelocity(impactDir);
+
+	Vector3D dir = vecAdd(vecScale(targetDir, 1- impactScale), vecScale(impactDir, impactScale));
+	dir = vecScale(normalizeVelocity(dir), e->mSpeed);
+	*e->mVelocity = dir;
+}
 
 static void updateMirkling(Mirkling* e) {
 	Position* p = getHandledPhysicsPositionReference(e->mPhysics);
@@ -162,21 +189,28 @@ static void updateMirkling(Mirkling* e) {
 	double t = getLinearInterpolationFactor(-100, downY, p->y);
 	p->z = interpolateLinear(2, 3, t);
 	
+	updateMirklingDirection(e);
+
 	if (p->y > downY) {
 		unloadMirkling(e);
 		return;
 	}
 }
 
+static void updateImpact() {
+	gData.mImpactPower *= 0.975;
+}
 
 void updateMirklings() {
 	int i;
+
 	for(i = 0; i < MAXIMUM_MIRKLING_AMOUNT; i++) {
 		if(!gData.mMirklings[i].mActive) continue;
 
 		updateMirkling(&gData.mMirklings[i]);
 	}
 
+	updateImpact();
 }
 
 void setMirklingRouteHitCB(int tID, void(*tCB)(void *tCaller, void *tCollisionData), void * tCaller)
@@ -231,6 +265,13 @@ void setMirklingsUnreal() {
 	gData.mAreReal = 0;
 }
 
+void addMirklingDetraction(Position p, double tPower)
+{
+	gData.mImpactPosition = p;
+	gData.mImpactPower = tPower;
+}
+
+
 void invertMirklingsReality()
 {
 	if (gData.mAreReal) setMirklingsUnreal();
@@ -277,11 +318,19 @@ void addMirkling(double tSpeed)
 	chooseNewBottomScreenTarget(e);
 }
 
+static Vector3D calculateManualMirklingTarget(Position tPos, Vector3D tDir) {
+	double dy = 1000 - tPos.y;
+	double dx = (dy / tDir.y) * tDir.x;
+
+	return makePosition(tPos.x+dx, 1000, 0);
+}
+
 int addMirklingManual(Position tPos, Vector3D tDir, double tSpeed)
 {
 	int id = findFreeMirklingSpotIndex();
 	Mirkling* e = &gData.mMirklings[id];
 	loadMirkling(e, tPos, tSpeed);
 	addAccelerationToHandledPhysics(e->mPhysics, vecScale(tDir, tSpeed));
+	e->mTarget = calculateManualMirklingTarget(tPos, tDir);
 	return id;
 }

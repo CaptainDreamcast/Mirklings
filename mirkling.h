@@ -14,5 +14,7 @@ void setMirklingsVisible();
 void invertMirklingsReality();
 void setMirklingsReal();
 void setMirklingsUnreal();
+void addMirklingDetraction(Position p, double tPower);
+
 
 Position getLowestMirklingPosition();

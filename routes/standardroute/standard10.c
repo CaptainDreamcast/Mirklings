@@ -53,14 +53,14 @@ static void specialMirklingHit(void* tCaller, void* tCollisionData) {
 
 static void generateSpecialMirkling() {
 	Position p = makePosition(320, -70, 3);
-	Velocity v = makePosition(0, 0.5, 0);
+	Velocity v = makePosition(0, 1, 0);
 
-	gData.mMirkling = addMirklingManual(p, v, 1);
+	gData.mMirkling = addMirklingManual(p, v, 0.5);
 	setMirklingRouteHitCB(gData.mMirkling, specialMirklingHit, NULL);
 }
 
 static void loadStandard10() {
-	setStandardWaveText("Wave 10");
+	setStandardWaveText("Wave 20");
 	setFunnyText();
 	setMirklingSpeed(1, 1);
 	setMirklingsGeneratedPerFrame(0);

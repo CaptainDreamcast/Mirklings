@@ -1,4 +1,4 @@
-#include "limitedsightlevel.h"
+#include "nosightlevel.h"
 
 #include <tari/math.h>
 #include <tari/animation.h>
@@ -8,7 +8,7 @@
 #include "../standardroute/standard.h"
 
 static char gFunnyTexts[][1024] = {
-	"Hohoho, tricked you! No more properness! Try being blind for a change."
+	"Let's see how far we can push this joke."
 };
 
 static struct {
@@ -26,17 +26,18 @@ static void setRandomFunnyText() {
 }
 
 
-static void loadLimitedSightLevel() {
-	setStandardWaveText("Wave 7");
+static void loadNoSightLevel() {
+	setStandardWaveText("Wave 8");
 	setRandomFunnyText();
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();
-	gData.mLimitedSightTexture = loadTexture("assets/effects/LIMITEDSIGHT.pkg");
+	gData.mLimitedSightTexture = loadTexture("assets/debug/collision_rect.pkg");
 	gData.mLimitedSight = playAnimationLoop(makePosition(0, 0, 9), &gData.mLimitedSightTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mLimitedSightTexture));
 	setAnimationSize(gData.mLimitedSight, makePosition(640,480,1), makePosition(0,0,0));
+	setAnimationColor(gData.mLimitedSight, 0,0,0);
 }
 
-static void unloadLimitedSightLevel() {
+static void unloadNoSightLevel() {
 	removeHandledAnimation(gData.mLimitedSight);
 	unloadTexture(gData.mLimitedSightTexture);
 }
@@ -44,11 +45,10 @@ static void unloadLimitedSightLevel() {
 
 
 
-Level LimitedSightLevel = {
-
-	.mLoadLevel = loadLimitedSightLevel,
+Level NoSightLevel = {
+	.mLoadLevel = loadNoSightLevel,
 	.mUpdateLevel = updateStandard,
 	.mHasLost = hasLostStandard,
 	.mHasWon = hasWonStandard,
-	.mUnloadLevel = unloadLimitedSightLevel
+	.mUnloadLevel = unloadNoSightLevel
 };

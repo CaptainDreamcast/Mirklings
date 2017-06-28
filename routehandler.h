@@ -7,3 +7,4 @@ extern ActorBlueprint RouteHandlerBP;
 void startNewRoute();
 void reloadRoute();
 void updateRouteHandler();
+void setCurrentRouteToContinue();

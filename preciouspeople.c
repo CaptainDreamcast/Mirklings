@@ -10,6 +10,7 @@
 
 #include "stage.h"
 #include "collision.h"
+#include "pussymode.h"
 
 #define MAX_HEALTH 100
 
@@ -87,7 +88,9 @@ static void setScream(PreciousPerson* e) {
 
 static void preciousPersonHit(void* tCaller, void* tData) {
 	(void)tData;
-	addStageHandlerScreenShake(2);
+	if (!isInPussyMode()) {
+		addStageHandlerScreenShake(2);
+	}
 
 	PreciousPerson* e = tCaller;
 	e->mHealth--;

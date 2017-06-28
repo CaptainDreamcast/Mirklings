@@ -71,22 +71,9 @@ void invertStageReality()
 	else setStageReal();
 }
 
-static void updateStage(void* tData) {
-	(void)tData;
-	if (hasPressedDown()) {
-		scrollBackgroundDown(10);
-	}
-
-	if (hasPressedUp()) {
-		scrollBackgroundDown(-10);
-	}
-}
-
-
 
 ActorBlueprint StageBP = {
 	.mLoad = loadStage,
-	.mUpdate = updateStage,
 	.mUnload = NULL,
 	.mIsActive = NULL
 };

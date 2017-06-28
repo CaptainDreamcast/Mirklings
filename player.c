@@ -7,11 +7,13 @@
 #include <tari/collisionhandler.h>
 #include <tari/soundeffect.h>
 #include <tari/stagehandler.h>
+#include <tari/wrapper.h>
 
 #include "collision.h"
 #include "stage.h"
 #include "preciouspeople.h"
 #include "explosion.h"
+#include "mirkling.h"
 
 typedef struct {
 	int mCollisionID;
@@ -49,7 +51,9 @@ static void addShot(Position p, double r) {
 	s->mCollisionData = makeCollisionData(getShotCollisionList());
 	s->mCollisionID = addColliderToCollisionHandler(getShotCollisionList(), &s->mPosition, s->mCollider, NULL, NULL, &s->mCollisionData);
 	p.z = 3;
+	
 	addExplosion(p, r);
+	addMirklingDetraction(p, r*0.6);
 	addTimerCB(2, shotFinished, s);
 }
 
@@ -67,7 +71,7 @@ static void shoot() {
 
 static void updatePlayer(void* tData) {
 	(void)tData;
-	if (!gData.mCanShoot) return;
+	if (!gData.mCanShoot || isWrapperPaused()) return;
 	
 	if (hasShotGunFlank()) {
 		shoot();
