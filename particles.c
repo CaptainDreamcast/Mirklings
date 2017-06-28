@@ -9,7 +9,8 @@
 
 #include "stage.h"
 
-#define MAX_PARTICLE_AMOUNT 100
+// TODO: find a nicer way to write this
+enum { MAX_PARTICLE_AMOUNT = (int)(1000*PERFORMANCE_FACTOR) };
 
 typedef struct {
 	int mActive;

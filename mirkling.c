@@ -19,7 +19,8 @@
 #include "explosion.h"
 #include "pussymode.h"
 
-#define MAXIMUM_MIRKLING_AMOUNT 1000
+// TODO: find a nicer way to write this
+enum { MAXIMUM_MIRKLING_AMOUNT = (int)(10000*PERFORMANCE_FACTOR) };
 
 typedef void(*RouteHitCB)(void* tCaller, void* tCollisionData);
 

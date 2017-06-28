@@ -70,7 +70,7 @@ static Level* gLevels[] = {
 	//&DiscotateLevel,
 	//&StandardLevel9,
 	//&InvisibleMirklingsLevel,
-	&StandardLevel10,					//20
+	//&StandardLevel10,					//20
 	
 	//&TextBlockingViewLevel,
 	//&PlayForYouLevel,
@@ -78,13 +78,13 @@ static Level* gLevels[] = {
 	//&SimulationBreakdown2,
 	//&SimulationBreakdown3,
 	//&SimulationBreakdown4,
-	//&SimulationBreakdown5,
-	//&SimulationBreakdown6,
-	//&SimulationBreakdown7,
-	//&SimulationBreakdown8,
-	//&SimulationBreakdown9,
-	//&SimulationBreakdown10,
-	//&SimulationBreakdown11,
+	&SimulationBreakdown5,
+	&SimulationBreakdown6,
+	&SimulationBreakdown7,
+	&SimulationBreakdown8,
+	&SimulationBreakdown9,
+	&SimulationBreakdown10,
+	&SimulationBreakdown11,
 };
 
 static void loadPukeRoute() {

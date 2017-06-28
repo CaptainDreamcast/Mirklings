@@ -7,12 +7,13 @@
 #include <tari/tweening.h>
 #include <tari/soundeffect.h>
 #include <tari/timer.h>
+#include <tari/system.h>
 
 #include "stage.h"
 #include "collision.h"
 #include "pussymode.h"
 
-#define MAX_HEALTH 100
+#define MAX_HEALTH ((int)(100*PERFORMANCE_FACTOR))
 
 typedef struct {
 	Position p;
