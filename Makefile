@@ -39,6 +39,8 @@ genlevels:
 	find filesystem/assets/ -name '*.png' | xargs rm -f
 	find filesystem/assets/ -name '*.kmg' | xargs rm -f
 	find filesystem/assets/ -name '*.xcf' | xargs rm -f
+	find filesystem/assets/ -name '*.wav' | xargs rm -f
+	find assets/ -name '*.wav' | xargs -I {} sox {} -b 16 filesystem/{}
 	
 
 clean:
