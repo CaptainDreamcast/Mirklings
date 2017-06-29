@@ -7,6 +7,7 @@
 #include <tari/texthandler.h>
 #include <tari/math.h>
 #include <tari/memoryhandler.h>
+#include <tari/sound.h>
 
 #include "mirklinghandler.h"
 #include "stage.h"
@@ -40,6 +41,7 @@ static void changeToSeriousText() {
 
 static void loadTitleScreen() {
 	initGameSoundEffects();
+
 	gData.mBGTexture = loadTexture("assets/title/TITLE.pkg");
 	gData.mBG = playAnimationLoop(makePosition(0, 0, 12), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
 

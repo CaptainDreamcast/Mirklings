@@ -5,6 +5,7 @@
 #include <tari/animation.h>
 #include <tari/stagehandler.h>
 #include <tari/input.h>
+#include <tari/sound.h>
 
 #include "preciouspeople.h"
 
@@ -48,6 +49,7 @@ static void loadStage(void* tData) {
 	setStageCameraRange(makeGeoRectangle(0,0,320,1080));
 	gData.mShakeMaximum = 0;
 	increaseScreenShake();
+	playTrack(1);
 	gData.mIsReal = 0;
 }
 
@@ -55,6 +57,7 @@ void setStageReal() {
 	if (gData.mIsReal) return;
 	setScrollingBackgroundVisible(gData.realPlaneID);
 	setScrollingBackgroundInvisible(gData.planeID);
+	pauseTrack();
 	gData.mIsReal = 1;
 }
 
@@ -62,6 +65,7 @@ void setStageUnreal() {
 	if (!gData.mIsReal) return;
 	setScrollingBackgroundVisible(gData.planeID);
 	setScrollingBackgroundInvisible(gData.realPlaneID);
+	resumeTrack();
 	gData.mIsReal = 0;
 }
 

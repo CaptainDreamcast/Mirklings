@@ -12,9 +12,7 @@
 #include "../../mirkling.h"
 
 static char gFunnyTexts[][1024] = {
-	"This game is so fun, you'll puke with joy! Joy, supper, lunch... anything, really!",
-	"You thought screen shake was bad? Check this out:",
-	"Every day we stray further from God's light into the unfeeling abyss of darkness."
+	"You suck at this. I hereby revoke your player license."
 };
 
 static struct {
@@ -35,7 +33,7 @@ static void startShooting(void* tCaller) {
 }
 
 static void loadPlayForYouLevel() {
-	setStandardWaveText("Round 6");
+	setStandardWaveText("Wave 22");
 	setRandomFunnyText();
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();

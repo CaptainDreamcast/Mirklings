@@ -161,7 +161,7 @@ void setStandardLevelMirklingAmount(int tLimit)
 	int variance = (int)(0.1*tLimit);
 	tLimit = randfromInteger(tLimit-variance, tLimit);
 
-	gData.mLimit = max(1, tLimit*PERFORMANCE_FACTOR);
+	gData.mLimit = (int)max(1, tLimit*PERFORMANCE_FACTOR);
 }
 
 int getStandardLevelMirklingAmount() {

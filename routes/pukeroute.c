@@ -51,6 +51,7 @@ static struct {
 
 static Level* gLevels[] = {
 	//&TrailerRoute,
+
 	//&StandardLevel1,
 	//&StandardLevel2,
 	//&StandardLevel3,
@@ -62,7 +63,7 @@ static Level* gLevels[] = {
 	//&StandardLevel7,
 	//&ShakeLevel,						// 10
 
-	//&RotateLevel,
+	//RotateLevel,
 	//&StandardLevel8,
 	//&WillKillYourParentsLevel,
 	//&MaybeKilledYourParentsLevel,		// 15
@@ -76,12 +77,13 @@ static Level* gLevels[] = {
 	//&PlayForYouLevel,
 	//&SimulationBreakdown1,
 	//&SimulationBreakdown2,
-	//&SimulationBreakdown3,
+	//&SimulationBreakdown3,			//25
+
 	//&SimulationBreakdown4,
 	&SimulationBreakdown5,
 	&SimulationBreakdown6,
 	&SimulationBreakdown7,
-	&SimulationBreakdown8,
+	&SimulationBreakdown8, //30
 	&SimulationBreakdown9,
 	&SimulationBreakdown10,
 	&SimulationBreakdown11,
