@@ -35,8 +35,8 @@ static void loadSimulationBreakdown5() {
 	setStandardFunnyText("I warned you.");
 	setMirklingSpeed(3, 4);
 
-	setMirklingsGeneratedPerFrame(1);
-	setStandardLevelMirklingAmount(10000);
+	setMirklingsGeneratedPerFrame(10);
+	setStandardLevelMirklingAmount(20000);
 	loadStandard();
 	setStandardFunnyTextPositionAfterLoad(makePosition(200, 240, 12));
 	setNewScreenNoise();

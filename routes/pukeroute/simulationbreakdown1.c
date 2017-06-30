@@ -23,6 +23,7 @@ static void loadSimulationBreakdown1() {
 	setStandardWaveText("Wave ?309");
 	setStandardFunnyText("Ah, we're having small graphics glitches. Nothing new here, you should be used to this level of quality by now.");
 	setMirklingSpeed(1, 2);
+	setMirklingsGeneratedPerFrame(10);
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();
 	setNewScreenNoise();

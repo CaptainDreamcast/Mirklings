@@ -27,21 +27,27 @@ copy_debug:
 	cp assets/debug/*.pkg romdisk_boot/debug
 	mkdir filesystem
 	mkdir filesystem/assets
+	mkdir filesystem/logo
+	mkdir filesystem/effects
 
 to_romdisk:
 	cp -r filesystem/* romdisk_boot
 
 genlevels:
 	cp -r assets/* filesystem/assets
-	
-	find filesystem/assets/ -name '*.png' | xargs $(KOS_BASE)/utils/kmgenc/kmgenc -a4 
-	find filesystem/assets/ -name '*.kmg' | xargs $(KOS_BASE)/addons/libtari/tools/bin/kompressor
-	find filesystem/assets/ -name '*.png' | xargs rm -f
-	find filesystem/assets/ -name '*.kmg' | xargs rm -f
-	find filesystem/assets/ -name '*.xcf' | xargs rm -f
-	find filesystem/assets/ -name '*.wav' | xargs rm -f
+	cp -r $(KOS_BASE)/addons/libtari/assets/logo/LOGO_DC.png filesystem/logo/LOGO_DC.png
+	cp -r $(KOS_BASE)/addons/libtari/assets/effects/* filesystem/effects		
+
+	find filesystem/ -name '*.png' | xargs $(KOS_BASE)/utils/kmgenc/kmgenc -a4 
+	find filesystem/ -name '*.kmg' | xargs $(KOS_BASE)/addons/libtari/tools/bin/kompressor
+	find filesystem/ -name '*.png' | xargs rm -f
+	find filesystem/ -name '*.kmg' | xargs rm -f
+	find filesystem/ -name '*.xcf' | xargs rm -f
+	find filesystem/ -name '*.wav' | xargs rm -f
 	find assets/ -name '*.wav' | xargs -I {} sox {} -b 16 filesystem/{}
 	
+	mkdir romdisk_boot/effects
+	cp -r filesystem/effects romdisk_boot
 
 clean:
 	-rm -f $(TARGET).elf $(OBJS)

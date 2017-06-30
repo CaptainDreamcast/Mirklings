@@ -26,11 +26,7 @@ static void loadSimulationBreakdown3() {
 	setStandardFunnyText("Oh oh oh oh oh oh oh oh oh oh oh oh oh oh oh oh oh this is bad");
 	setMirklingSpeed(1, 2);
 
-	//setStandardWaveText("34°10'9.51\"N 73°14'32.78\"E");
-	//setStandardFunnyText("... Look. We had our fun. You can turn off Mirklings now. You have my permission.");
-	//setMirklingSpeed(1, 2);
-
-	setMirklingsGeneratedPerFrame(1);
+	setMirklingsGeneratedPerFrame(10);
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();
 	setNewScreenNoise();

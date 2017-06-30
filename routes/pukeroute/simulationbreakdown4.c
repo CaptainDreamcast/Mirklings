@@ -32,7 +32,7 @@ static void loadSimulationBreakdown4() {
 	setStandardFunnyText("... Look. We had our fun. You can turn off Mirklings now. You have my permission.");
 	setMirklingSpeed(1, 2);
 
-	setMirklingsGeneratedPerFrame(1);
+	setMirklingsGeneratedPerFrame(10);
 	setStandardLevelMirklingAmount(10000);
 	loadStandard();
 	setNewScreenNoise();
