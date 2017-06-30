@@ -27,9 +27,9 @@ static void setRandomFunnyText() {
 static void loadStandard6() {
 	setStandardWaveText("Wave 6");
 	setRandomFunnyText();
-	setMirklingSpeed(2, 4);
-	setMirklingsGeneratedPerFrame(20);
-	setStandardLevelMirklingAmount(10000);
+	setMirklingSpeed(6, 8);
+	setMirklingsGeneratedPerFrame(40);
+	setStandardLevelMirklingAmount(40000);
 	loadStandard();
 }
 

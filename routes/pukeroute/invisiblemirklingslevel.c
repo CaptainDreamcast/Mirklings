@@ -7,6 +7,7 @@
 
 #include "../standardroute/standard.h"
 #include "../../mirkling.h"
+#include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
 	"Heads up: The Mirklings in this level are invisible. No, they really are, keep bombing the air and you'll see."
@@ -22,7 +23,9 @@ static void setRandomFunnyText() {
 static void loadInvisibleMirklingsLevel() {
 	setStandardWaveText("Round 19");
 	setRandomFunnyText();
-	setStandardLevelMirklingAmount(15000);
+	setStandardLevelMirklingAmount(20000);
+	setMirklingSpeed(1, 2);
+	setMirklingsGeneratedPerFrame(10);
 	loadStandard();
 	setMirklingsInvisible();
 }

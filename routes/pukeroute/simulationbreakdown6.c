@@ -20,6 +20,9 @@ static struct {
 	TextureData mTitleTexture;
 	int mTitle;
 	int mTitleText;
+
+	TextureData mTransparentBGTexture;
+	int mTransparentBG;
 } gData;
 
 static void setNewScreenNoise() {
@@ -35,10 +38,13 @@ static void setNewScreenNoise() {
 
 static void showBreakdownTitle(void* tCaller) {
 	(void)tCaller;
+	gData.mTransparentBGTexture = loadTexture("assets/text/WAVE_TEXT_BG.pkg");
+	gData.mTransparentBG = playOneFrameAnimationLoop(makePosition(0, 0, 19), &gData.mTransparentBGTexture);
+	setAnimationSize(gData.mTransparentBG, makePosition(640, 480, 1), makePosition(0, 0, 0));
+
 	gData.mTitleTexture = loadTexture("assets/title/TITLE.pkg");
 	gData.mTitle = playAnimationLoop(makePosition(0,0,20), &gData.mTitleTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mTitleTexture));
 	gData.mTitleText = addHandledTextWithInfiniteDurationOnOneLine(makePosition(70, 300, 21), "PRESS START AND SHOOT AT THE SCREEN", 0, COLOR_WHITE, makePosition(15, 15, 1));
-	
 }
 
 static void loadSimulationBreakdown6() {
@@ -68,6 +74,8 @@ static void unloadSimulationBreakdown6() {
 	removeHandledText(gData.mTitleText);
 	removeHandledAnimation(gData.mTitle);
 	unloadTexture(gData.mTitleTexture);
+	removeHandledAnimation(gData.mTransparentBG);
+	unloadTexture(gData.mTransparentBGTexture);
 }
 
 Level SimulationBreakdown6 = {

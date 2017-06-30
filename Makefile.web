@@ -13,7 +13,8 @@ all: complete
 complete: build_develop
 
 clean:
-	-del -f $(TARGET).elf $(OBJS)
+	-del -f $(TARGET).elf 
+	-del /s *.o
 	-del -f $(TARGET).BIN
 	-del -f assets/debug/*.pkg
 	-del -r -f romdisk_boot

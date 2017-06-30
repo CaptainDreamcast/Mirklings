@@ -69,12 +69,22 @@ static void shoot() {
 	addShot(p, 40 * getPreciousPeopleAmount());	
 }
 
+static Duration gNowDebugShot;
+
 static void updatePlayer(void* tData) {
 	(void)tData;
 	if (!gData.mCanShoot || isWrapperPaused()) return;
 	
 	if (hasShotGunFlank()) {
 		shoot();
+	}
+
+	if (handleDurationAndCheckIfOver(&gNowDebugShot, 5)) {
+		Position p = getLowestMirklingPosition();
+		if (p.y > 200) {
+			addShot(p, 200);
+			gNowDebugShot = 0;
+		}
 	}
 
 }

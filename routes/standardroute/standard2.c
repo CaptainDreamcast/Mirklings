@@ -7,7 +7,6 @@
 
 static char gFunnyTexts[][1024] = {
 	"Boom boom boom, that was fun, eh? You won't close the game anytime soon, right? BY GOD PLEASE DON'T LEAVE",
-	"They're squishy, they explode. It's a simple Mirklings life. We should envy them and their sweet release of death.",
 };
 
 static char gFailText[] = "Look dude, I know \"everybody plays differently\" and shit, but how did you lose a damn house this soon?";

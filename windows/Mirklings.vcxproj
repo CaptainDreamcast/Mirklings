@@ -178,6 +178,7 @@
     <ClCompile Include="..\stage.c" />
     <ClCompile Include="..\titlescreen.c" />
     <ClCompile Include="..\titlescreengoof.c" />
+    <ClCompile Include="..\titlescreengoofscreen.c" />
     <ClCompile Include="..\upgrades.c" />
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +245,7 @@
     <ClInclude Include="..\stage.h" />
     <ClInclude Include="..\titlescreen.h" />
     <ClInclude Include="..\titlescreengoof.h" />
+    <ClInclude Include="..\titlescreengoofscreen.h" />
     <ClInclude Include="..\upgrades.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

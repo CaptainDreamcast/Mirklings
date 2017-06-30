@@ -9,6 +9,8 @@
 #include "../standardroute/standard.h"
 #include "../../stage.h"
 #include "../../mirkling.h"
+#include "../../mirklinghandler.h"
+
 
 static char gFunnyTexts[][1024] = {
 	"In case it helps you, I also got pretty seasick from making the game, we're pretty much puke-buddies.",
@@ -27,7 +29,10 @@ static void setRandomFunnyText() {
 static void loadShakeLevel() {
 	setStandardWaveText("Wave 10");
 	setRandomFunnyText();
-	setStandardLevelMirklingAmount(10000);
+	setMirklingSpeed(2, 4);
+	setMirklingsGeneratedPerFrame(10);
+
+	setStandardLevelMirklingAmount(30000);
 	loadStandard();
 	setMirklingSpawnY(-150);
 

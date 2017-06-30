@@ -75,21 +75,20 @@ static void updateMirklingHandler(void* tData) {
 
 	if (gData.mIsGenerationPaused || isWrapperPaused()) return;
 
-	double generatedMirklings = gData.mMirklingsGeneratedPerFrame*PERFORMANCE_FACTOR;
+	double generatedMirklingsTotal = gData.mMirklingsGeneratedPerFrame*PERFORMANCE_FACTOR;
 
-	if(generatedMirklings < 1) {
-		double prob = randfrom(0, 1);
+	int generatedMirklingsAbsolute = (int)generatedMirklingsTotal;
+	double generatedMirklingsFraction = generatedMirklingsTotal - generatedMirklingsAbsolute;
 
-		if(prob < generatedMirklings) {
-			addMirkling(randfrom(gData.mMirklingSpeedMin, gData.mMirklingSpeedMax));
-		}
-	} else {
-		int generatedMirklingsI = (int)generatedMirklings;
+	int i;
+	for (i = 0; i < generatedMirklingsAbsolute; i++) {
+		addMirkling(randfrom(gData.mMirklingSpeedMin, gData.mMirklingSpeedMax));
+	}
 
-		int i;
-		for (i = 0; i < generatedMirklingsI; i++) {
-			addMirkling(randfrom(gData.mMirklingSpeedMin, gData.mMirklingSpeedMax));
-		}
+
+	double prob = randfrom(0, 1);
+	if (prob < generatedMirklingsFraction) {
+		addMirkling(randfrom(gData.mMirklingSpeedMin, gData.mMirklingSpeedMax));
 	}
 }
 

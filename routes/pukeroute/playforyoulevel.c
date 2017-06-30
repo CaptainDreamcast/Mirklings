@@ -10,6 +10,8 @@
 #include "../standardroute/standard.h"
 #include "../../player.h"
 #include "../../mirkling.h"
+#include "../../mirklinghandler.h"
+
 
 static char gFunnyTexts[][1024] = {
 	"You suck at this. I hereby revoke your player license."
@@ -35,6 +37,9 @@ static void startShooting(void* tCaller) {
 static void loadPlayForYouLevel() {
 	setStandardWaveText("Wave 22");
 	setRandomFunnyText();
+	
+	setMirklingSpeed(1, 2);
+	setMirklingsGeneratedPerFrame(10);
 	setStandardLevelMirklingAmount(15000);
 	loadStandard();
 

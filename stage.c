@@ -29,7 +29,9 @@ void increaseScreenShake() {
 
 void resetScreenShakeLimit()
 {
-	gData.mShakeMaximum = getPreciousPeopleAmount()*10;
+	gData.mShakeMaximum = 10;
+	gData.mShakeMaximum += 10 * (5 - getPreciousPeopleAmount());
+	setStageHandlerMaximumScreenShake(gData.mShakeMaximum);
 }
 
 

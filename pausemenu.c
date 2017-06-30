@@ -4,6 +4,8 @@
 #include <tari/animation.h>
 #include <tari/wrapper.h>
 #include <tari/input.h>
+#include <tari/sound.h>
+#include <tari/soundeffect.h>
 
 #include "pussymode.h"
 #include "titlescreen.h"
@@ -14,6 +16,9 @@ static struct {
 	int mToTitle;
 	TextureData mBGTexture;
 	int mBG;
+		
+	int mIsMuted;
+	int mToggleSound;
 
 	int mOptionX;
 
@@ -64,29 +69,51 @@ static void selectPussyModeOn(void* tCaller) {
 	(void)tCaller;
 	setPussyModeOn();
 	removeOption(gData.mPussyMode);
-	gData.mPussyMode = addOption(makePosition(gData.mOptionX, 280, 40), "Turn pussy mode OFF", selectPussyModeOff, NULL);
+	gData.mPussyMode = addOption(makePosition(gData.mOptionX, 310, 40), "Turn pussy mode OFF", selectPussyModeOff, NULL);
 }
 
 static void selectPussyModeOff(void* tCaller) {
 	(void)tCaller;
 	setPussyModeOff();
 	removeOption(gData.mPussyMode);
-	gData.mPussyMode = addOption(makePosition(gData.mOptionX, 280, 40), "Turn pussy mode ON", selectPussyModeOn, NULL);
+	gData.mPussyMode = addOption(makePosition(gData.mOptionX, 310, 40), "Turn pussy mode ON", selectPussyModeOn, NULL);
+}
+
+static void turnSoundOn() {
+
+	setVolume(1);
+	setSoundEffectVolume(1);
+	gData.mIsMuted = 0;
+}
+
+static void turnSoundOff() {
+	setVolume(0);
+	setSoundEffectVolume(0);
+	gData.mIsMuted = 1; 
+}
+
+static void selectToggleSound(void* tCaller) {
+	(void)tCaller;
+
+	if (gData.mIsMuted) turnSoundOn();
+	else turnSoundOff();
+
 }
 
 static void startPauseMenu() {
 
 	gData.mBG = playOneFrameAnimationLoop(makePosition(100, 200, 39), &gData.mBGTexture);
 	setAnimationColorType(gData.mBG, COLOR_BLACK);
-	setAnimationSize(gData.mBG, makePosition(440, 110, 1), makePosition(0, 0, 0));
+	setAnimationSize(gData.mBG, makePosition(440, 140, 1), makePosition(0, 0, 0));
 	gData.mContinue = addOption(makePosition(gData.mOptionX, 220, 40), "Continue", selectContinue, NULL);
 	gData.mToTitle = addOption(makePosition(gData.mOptionX, 250, 40), "Return to title", selectTitle, NULL);
+	gData.mToggleSound = addOption(makePosition(gData.mOptionX, 280, 40), "Toggle sound", selectToggleSound, NULL);
 
 	if (isInPussyMode()) {
-		gData.mPussyMode = addOption(makePosition(gData.mOptionX, 280, 40), "Turn pussy mode OFF", selectPussyModeOff, NULL);
+		gData.mPussyMode = addOption(makePosition(gData.mOptionX, 310, 40), "Turn pussy mode OFF", selectPussyModeOff, NULL);
 	}
 	else {
-		gData.mPussyMode = addOption(makePosition(gData.mOptionX, 280, 40), "Turn pussy mode ON", selectPussyModeOn, NULL);
+		gData.mPussyMode = addOption(makePosition(gData.mOptionX, 310, 40), "Turn pussy mode ON", selectPussyModeOn, NULL);
 	}
 
 	pauseWrapper();
@@ -97,6 +124,7 @@ static void stopPauseMenu() {
 	removeHandledAnimation(gData.mBG);
 	removeOption(gData.mContinue);
 	removeOption(gData.mToTitle);
+	removeOption(gData.mToggleSound);
 	removeOption(gData.mPussyMode);
 
 	resumeWrapper();

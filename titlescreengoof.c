@@ -1,6 +1,8 @@
 #include "titlescreengoof.h"
 
 #include <stdio.h>
+#include "titlescreengoofscreen.h"
+
 
 #ifdef _WIN32
 #include <windows.h>
@@ -20,7 +22,7 @@ void startTitleScreenGoof() {
 #else
 
 void startTitleScreenGoof() {
-	printf("hihihi\n");
+	setNewScreen(&TitleScreenGoofScreen);
 }
 
 #endif

@@ -5,6 +5,7 @@
 #include <tari/system.h>
 
 #include "../standardroute/standard.h"
+#include "../../mirklinghandler.h"
 #include "../../player.h"
 #include "../../mirkling.h"
 
@@ -31,7 +32,9 @@ static void setRandomFunnyText() {
 static void loadRotateLevel() {
 	setStandardWaveText("Wave 11");
 	setRandomFunnyText();
-	setStandardLevelMirklingAmount(15000);
+	setStandardLevelMirklingAmount(25000);
+	setMirklingsGeneratedPerFrame(20);
+	setMirklingSpeed(4, 6);
 	setMirklingSpawnY(-320);
 	loadStandard();
 

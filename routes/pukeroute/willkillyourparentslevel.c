@@ -9,6 +9,8 @@
 
 #include "../standardroute/standard.h"
 #include "../../deathcount.h"
+#include "../../mirkling.h"
+#include "../../mirklinghandler.h"
 
 static struct {
 	int mStart;
@@ -19,7 +21,9 @@ static struct {
 static void loadWillKillYourParentsLevel() {
 	setStandardWaveText("Wave 13");
 	setStandardFunnyText("I swear to God if you don't destroy all the Mirklings in this level I will kill your parents and everything you love. I'll do it, I no longer have anything to lose, don't try me.");
-	setStandardLevelMirklingAmount(10000);
+	setStandardLevelMirklingAmount(6000);
+	setMirklingSpeed(6, 8);
+	setMirklingsGeneratedPerFrame(1);
 	loadStandard();
 
 	gData.mStart = getDeathCount();

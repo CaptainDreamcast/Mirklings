@@ -19,6 +19,9 @@
 #include "endingscreen.h"
 
 static struct {
+	TextureData mTransparentBGTexture;
+	int mTransparentBG;
+
 	TextureData mBGTexture;
 	int mBG;
 
@@ -42,9 +45,13 @@ static void changeToSeriousText() {
 static void loadTitleScreen() {
 	initGameSoundEffects();
 
+	gData.mTransparentBGTexture = loadTexture("assets/text/WAVE_TEXT_BG.pkg");
+	gData.mTransparentBG = playOneFrameAnimationLoop(makePosition(0,0,11), &gData.mTransparentBGTexture);
+	setAnimationSize(gData.mTransparentBG, makePosition(640, 480, 1), makePosition(0, 0, 0));
+
 	gData.mBGTexture = loadTexture("assets/title/TITLE.pkg");
 	gData.mBG = playAnimationLoop(makePosition(0, 0, 12), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
-
+	
 	Position pressStartPosition = makePosition(20, 300, 13);
 	gData.mPressStartText = addHandledTextWithBuildup(pressStartPosition, "Press start and please don't shoot at the title screen because I am the title screen and I generally don't appreciate being shot at", 0, COLOR_WHITE, makePosition(20, 20, 1), makePosition(0, 10, 0), makePosition(600, INF, 0), INF, 60);
 	setHandledTextSoundEffects(gData.mPressStartText, getTextSoundEffectCollection());

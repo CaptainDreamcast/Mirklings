@@ -64,6 +64,7 @@ static void addSqueeze(PreciousPerson* e) {
 }
 
 static void updateHealthBar(PreciousPerson* e) {
+	if (e->mIsReal) return;
 	double healthFac = e->mHealth / (double)MAX_HEALTH;
 	setAnimationSize(e->mHealthBar, makePosition(healthFac * 50, 5, 1), makePosition(0, 0, 0));
 	if (healthFac > 0.5) setAnimationColorType(e->mHealthBar, COLOR_GREEN);
@@ -188,6 +189,7 @@ static void updateBounce(PreciousPerson* e) {
 static void updatePreciousPerson(void* tData) {
 	PreciousPerson* e = tData;
 
+	updateHealthBar(e);
 	updateBounce(e);
 	updateReality(e);
 }

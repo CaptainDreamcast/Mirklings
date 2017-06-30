@@ -22,7 +22,7 @@ static void loadStandard7() {
 	setRandomFunnyText();
 	setMirklingSpeed(4, 8);
 	setMirklingsGeneratedPerFrame(40);
-	setStandardLevelMirklingAmount(10000);
+	setStandardLevelMirklingAmount(50000);
 	loadStandard();
 }
 
