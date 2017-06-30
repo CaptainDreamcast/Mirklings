@@ -12,7 +12,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"Interesting choice. Can't say I agree with it, though. Anyway, you'd do well to remember this."
+	"You'd do well to remember this previous level and learn from it."
 };
 
 static struct {
@@ -23,7 +23,7 @@ static struct {
 	int mBG;
 } gData;
 
-static char gBlockingText[] = "Finally I can talk as much as I want without restrictions. You see, Mirklings is a very special game. A game called Mirklings took last place in the Imagine Cup 2014. Although that was a different Mirkllings. All in all, fuck Microsoft. Then again, the year after said, we got an Xbox One. Problem with that is that it's always installing updates. Lie, you want to play a new game? Screw you, mandatory 4GB update. Won't happen with Mirkllings, I promise. Anyway, back to the whole \"Second Mirklings\" thing. I traced the logo from the original one's design. Problem is: I didn't design that one. So whatever you do, don't tell the original designer, ok?";
+static char gBlockingText[] = "Mirklings is going to be incredibly popular with kids, you can just picture them running in toy stores wanting the new Mirklings plushie, shirt, or sleeping pills. Research shows that kids love squishy yellow/orange things. You thought this was a coincidence? Pikachu, minions, Spongebob... all yellow! It's a goddamn conspiracy and nobody dares to speak out. Fine, let them have it their way, but Mirklings merch will be going to the moon along with them. They'll probably make a Mirklings TV series, too! And a video game! The guy who played the Hoompa Loompas in Charlie and the Chocolate Factory will play all the Mirklings and it will be top of the charts. Finally, time for some fame.";
 
 static void setRandomFunnyText() {
 	int amount = (sizeof gFunnyTexts) / sizeof(gFunnyTexts[0]);

@@ -15,7 +15,7 @@
 static void loadSimulationBreakdown7() {
 	setStandardWaveText("Wave 46");
 	
-	setStandardFunnyText("Ok, we're fine. Mirklings will proceed as originally scheduled now.");
+	setStandardFunnyText("Mirklings will proceed as originally scheduled now. Just blast away, carefully.");
 	setMirklingSpeed(3, 4);
 
 	setMirklingsGeneratedPerFrame(10);

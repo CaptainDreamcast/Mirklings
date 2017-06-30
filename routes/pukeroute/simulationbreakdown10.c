@@ -15,7 +15,7 @@
 static void loadSimulationBreakdown10() {
 	setStandardWaveText("...");
 	
-	setStandardFunnyText("Sorry, but I really want my BAFTA, and making your players kill real people is the easiest way.");
+	setStandardFunnyText("Sorry, but I really want my BAFTA, and adding a cheap emotional appeal to your game is the easiest way.");
 	setMirklingSpeed(1, 4);
 
 	setMirklingsGeneratedPerFrame(5);

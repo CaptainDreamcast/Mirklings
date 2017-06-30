@@ -7,7 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"This is part of the normal levels where we pretend Mirklings is a proper game.",
+	"Mirklings are closely related to the pufferfish. A pufferfish's natural prey are mollusks.",
 };
 
 static char gFailText[1024] = "Your gameplay style is like a car crash in motion, we all know it's not gonna end well, but we can't avert our eyes.";

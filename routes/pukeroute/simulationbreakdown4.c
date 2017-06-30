@@ -29,7 +29,7 @@ static void setNewScreenNoise() {
 
 static void loadSimulationBreakdown4() {
 	setStandardWaveText("34°10'9.51\"N 73°14'32.78\"E");
-	setStandardFunnyText("... Look. We had our fun. You can turn off Mirklings now. You have my permission.");
+	setStandardFunnyText("Going further may not be the best idea. You can tell the game's soon going to start hammering its super-deep leason.");
 	setMirklingSpeed(1, 2);
 
 	setMirklingsGeneratedPerFrame(10);

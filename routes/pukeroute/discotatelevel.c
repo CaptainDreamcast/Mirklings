@@ -11,7 +11,7 @@
 #include "../../player.h"
 
 static char gFunnyTexts[][1024] = {
-	"Ah ah ah stayin' alive, stayin alive. Ah ah ah stayin' aliiiiiiiiiiiiiiiive... don't know the rest."
+	"Ah ah ah stayin' alive, stayin alive. Ah ah ah stayin' aliiiiiiiiiiiiiiiive... you know the rest."
 };
 
 static struct {

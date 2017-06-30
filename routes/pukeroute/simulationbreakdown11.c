@@ -23,7 +23,7 @@ static void lastMirklingHit(void* tCaller, void* tCollisionData) {
 static void loadSimulationBreakdown11() {
 	setStandardWaveText("...");
 	
-	setStandardFunnyText("Time for a super-advanced karma choice.");
+	setStandardFunnyText("Time for a super-advanced karma choice, so Mirklings can say \"karma system\" on the box.");
 	setMirklingSpeed(1, 4);
 
 	setMirklingsGeneratedPerFrame(0);

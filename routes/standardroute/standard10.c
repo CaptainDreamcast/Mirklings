@@ -34,7 +34,7 @@ static void unleashHell(void* tCaller) {
 
 static void setHell() {
 	Position p = makePosition(50, 70, 12);
-	gData.mHellText = addHandledTextWithBuildup(p, "Now you've made a mistake, buddy", 0, COLOR_WHITE, makePosition(50,50,1), makePosition(0,0,0), makePosition(540, INF, INF), 280, 200);
+	gData.mHellText = addHandledTextWithBuildup(p, "YOU'RE NOT GONNA LIKE WHAT HAPPENS NOW", 0, COLOR_WHITE, makePosition(50,50,1), makePosition(0,0,0), makePosition(540, INF, INF), 280, 200);
 	setHandledTextSoundEffects(gData.mHellText, getTextSoundEffectCollection());
 	addTimerCB(280, unleashHell, NULL);
 }

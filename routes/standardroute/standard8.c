@@ -7,7 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"Have a little break. I know the last level was probably hard on your stomach. You earned this."
+	"Have a little break. The last level was probably hard on your stomach. You earned this."
 };
 
 static char gFailText[1024] = "On the upside, if you can make it through this with one house, you'll be a legend.";

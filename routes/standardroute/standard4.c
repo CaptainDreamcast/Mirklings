@@ -7,7 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"HOLY SHIT WHAT JUST HAPPENED"
+	"WHOA WHOA WHOA, WHAT JUST HAPPENED HERE, WHAT DID YOU DO?"
 };
 
 static void setRandomFunnyText() {

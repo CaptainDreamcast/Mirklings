@@ -7,7 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"Balance is kinda difficult, try this for me, please. It's my first route, please understand.",
+	"Mirklings are very shy. Scholars suggest it may be because they are prone to being blown to bits.",
 };
 
 static char gFailText[1024] = "I- it's okay, you can still do it. Sure. You can do it. Believe in me. You can do it. Stop looking at me like that.";

@@ -8,7 +8,7 @@
 #include "../standardroute/standard.h"
 
 static char gFunnyTexts[][1024] = {
-	"Hohoho, tricked you! No more properness! Try being blind for a change."
+	"Hohoho, no more properness! Try being blind for a change."
 };
 
 static struct {

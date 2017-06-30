@@ -7,7 +7,7 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"This is a completely boring standard level. Don't worry. Trust me.",
+	"Mirklings are often used for war because they're so fun to blow up. It's a cruel Mirk-world.",
 };
 
 static char gFailText[1024] = "You must be sweating right now! Another joke level and you're dead!";

@@ -20,12 +20,14 @@ clean:
 	-del -r -f romdisk_boot
 	-del -r -f filesystem
 	-del -f romdisk.img
+	-del -f web
 
 build_develop: $(OBJS) 
+	-mkdir web
 	emcc $(OBJS) -O2 -s TOTAL_MEMORY=100000000 -s USE_SDL=2 -s USE_SDL_IMAGE=2 \
 	-L../addons/libtari/bin -ltari \
 	--use-preload-plugins \
-    --preload-file tracks --preload-file assets --preload-file assets/fonts@fonts --preload-file assets/debug@debug -o 1.html
+    --preload-file tracks --preload-file ../addons/libtari/assets/effects@effects --preload-file ../addons/libtari/assets/logo@logo --preload-file assets --preload-file assets/fonts@fonts --preload-file assets/debug@debug -o web/Mirklings.html
 	
 
 TARI_INCLUDE = ../addons/libtari/include

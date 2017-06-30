@@ -14,7 +14,7 @@
 
 
 static char gFunnyTexts[][1024] = {
-	"You suck at this. I hereby revoke your player license."
+	"You suck at this. Your player license is hereby revoked."
 };
 
 static struct {

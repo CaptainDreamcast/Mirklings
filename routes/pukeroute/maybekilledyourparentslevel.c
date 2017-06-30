@@ -19,7 +19,7 @@ static void loadPlayForYouLevel() {
 	int missAmount = getPlayerParentKillMissedMirklingAmount();
 	char funnyText[1024];
 	if (missAmount) {
-		sprintf(funnyText, "You missed %d Mirklings, champ. Hope you told your parents you loved them. Mirklings is serious business, don't let the MS Paint art and edgy humour fool you.", missAmount);
+		sprintf(funnyText, "You missed %d Mirklings. Hope you told your parents you loved them. Mirklings is serious business, don't let the MS Paint art and edgy humour fool you.", missAmount);
 	}
 	else {
 		sprintf(funnyText, "Woah, you saved your parents. But if you REALLY loved your parents, you would play Mirklings to the end, just saying.");

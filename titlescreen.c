@@ -48,7 +48,7 @@ static void loadTitleScreen() {
 	gData.mTransparentBGTexture = loadTexture("assets/text/WAVE_TEXT_BG.pkg");
 	gData.mTransparentBG = playOneFrameAnimationLoop(makePosition(0,0,11), &gData.mTransparentBGTexture);
 	setAnimationSize(gData.mTransparentBG, makePosition(640, 480, 1), makePosition(0, 0, 0));
-
+	
 	gData.mBGTexture = loadTexture("assets/title/TITLE.pkg");
 	gData.mBG = playAnimationLoop(makePosition(0, 0, 12), &gData.mBGTexture, createOneFrameAnimation(), makeRectangleFromTexture(gData.mBGTexture));
 	

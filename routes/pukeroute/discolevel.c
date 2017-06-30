@@ -8,7 +8,7 @@
 #include "../standardroute/standard.h"
 
 static char gFunnyTexts[][1024] = {
-	"This is a very stylish game. If the lights don't match up with the music it's because you played the game wrong."
+	"This is a very stylish game. Mirklings is best played while dancing around in a post-ironic fashion. Try it."
 };
 
 static struct {

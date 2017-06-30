@@ -7,7 +7,6 @@
 #include "../../mirklinghandler.h"
 
 static char gFunnyTexts[][1024] = {
-	"Wow, this almost felt like a real level. Hope you reacted in time. It only goes up from here (lie).",
 	"The cramp in your hand means you're alive.",
 };
 

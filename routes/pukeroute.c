@@ -50,8 +50,6 @@ static struct {
 
 
 static Level* gLevels[] = {
-	//&TrailerRoute,
-
 	&StandardLevel1,
 	&StandardLevel2,
 	&StandardLevel3,

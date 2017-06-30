@@ -15,7 +15,7 @@
 static void loadSimulationBreakdown9() {
 	setStandardWaveText("...");
 	
-	setStandardFunnyText("You were controlling a drone shooting down people in Afghanistan.");
+	setStandardFunnyText("You were controlling a drone shooting down people in Afghanistan, as you can tell by these hyperrealistic video recordings.");
 	setMirklingSpeed(1, 2);
 
 	setMirklingsGeneratedPerFrame(10);

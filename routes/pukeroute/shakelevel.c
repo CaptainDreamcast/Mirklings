@@ -13,9 +13,7 @@
 
 
 static char gFunnyTexts[][1024] = {
-	"In case it helps you, I also got pretty seasick from making the game, we're pretty much puke-buddies.",
 	"This level is dedicated to Vlambeer.",
-	"Try closing your eyes to amplify the seasickness effect. It really makes things worse."
 };
 
 
