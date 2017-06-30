@@ -247,6 +247,13 @@
     <ClInclude Include="..\titlescreengoof.h" />
     <ClInclude Include="..\titlescreengoofscreen.h" />
     <ClInclude Include="..\upgrades.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Mirklings.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\boot\Mirklings.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
