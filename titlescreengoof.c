@@ -8,7 +8,7 @@
 #include <windows.h>
 
 void startTitleScreenGoof() {
-	ShellExecute(NULL, L"open", L"https://www.google.com/search?q=painful+ways+to+kill+yourself", NULL, NULL, SW_SHOWNORMAL);
+	ShellExecute(NULL, L"open", L"http://www.wikihow.com/Be-Nice", NULL, NULL, SW_SHOWNORMAL);
 }
 
 #elif defined __EMSCRIPTEN__ 
@@ -16,7 +16,7 @@ void startTitleScreenGoof() {
 #include <emscripten.h>
 
 void startTitleScreenGoof() {
-	emscripten_run_script("window.open(\"https://www.google.com/search?q=painful+ways+to+kill+yourself\", \"_blank\"); ");
+	emscripten_run_script("window.open(\"http://www.wikihow.com/Be-Nice\", \"_blank\"); ");
 }
 
 #else
