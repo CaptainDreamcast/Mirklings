@@ -24,7 +24,7 @@ clean:
 
 build_develop: $(OBJS) 
 	-mkdir web
-	emcc $(OBJS) -O2 -s TOTAL_MEMORY=100000000 -s USE_SDL=2 -s USE_SDL_IMAGE=2 \
+	emcc $(OBJS) -O2 -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL=2 -s USE_SDL_IMAGE=2 \
 	-L../addons/libtari/bin -ltari \
 	--use-preload-plugins \
     --preload-file tracks --preload-file ../addons/libtari/assets/effects@effects --preload-file ../addons/libtari/assets/logo@logo --preload-file assets --preload-file assets/fonts@fonts --preload-file assets/debug@debug -o web/Mirklings.html
